@@ -3,13 +3,16 @@ package com.example.helloworld.functions;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 
-public class NewFile {
+/** 用于创建新的文件
+ *
+ */
+
+public class NewFile extends FileManager {// 继承用于打印信息
     public void newFile(String file_path, Activity activity) {
         String file_result = "error";
         try {
@@ -55,11 +58,6 @@ public class NewFile {
             ex.printStackTrace();
         }
         showResult("error", activity);
-        return;
-    }
-
-    private void showResult(String result, Activity activity) {// 打印信息
-        Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
         return;
     }
 }

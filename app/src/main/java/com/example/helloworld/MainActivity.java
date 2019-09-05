@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String sd_path = Environment.getExternalStorageDirectory().getAbsolutePath();// 获取内置存储目录
                 Log.i("newBtn", sd_path);
+                // 新建文件
                 NewFile tempNew = new NewFile();
                 tempNew.newFile(sd_path + "/Editor/", MainActivity.this);
             }
@@ -77,13 +78,14 @@ public class MainActivity extends AppCompatActivity {
             String path = null;
             if (requestCode == 1) {// `打开`按钮
                 Uri uri = data.getData();
-                path = uri.getPath().toString();
+                path = uri.getPath();
+                // 读取文件内容
+//                ReadFile tempRead = new ReadFile();
+//                tempRead.readFile(path);
+//                Log.i("path", path);
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
-                path = uri.getPath().toString();
-                ReadFile tempRead = new ReadFile();
-                tempRead.readFile(path);
-                Log.i("path", path);
+                path = uri.getPath();
             }
             if (path != null) {// path非空
                 Toast.makeText(this, path, Toast.LENGTH_SHORT).show();

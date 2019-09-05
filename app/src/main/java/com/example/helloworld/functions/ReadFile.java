@@ -6,7 +6,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class ReadFile {
+/** 用于读取文件内容
+ *
+ */
+
+public class ReadFile extends FileManager {
     public void readFile(String file) {
         try {
             FileInputStream file_input = new FileInputStream(file);
