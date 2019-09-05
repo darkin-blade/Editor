@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.io.File;
 
 import com.example.helloworld.functions.NewFile;
+import com.example.helloworld.functions.ReadFile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -64,9 +65,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String sd_path = Environment.getExternalStorageDirectory().getAbsolutePath();// 获取内置存储目录
                 Log.i("newBtn", sd_path);
-                NewFile temp = new NewFile();
-                String result = temp.newFile(sd_path + "/Editor/", MainActivity.this);
-                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                NewFile tempNew = new NewFile();
+                tempNew.newFile(sd_path + "/Editor/", MainActivity.this);
             }
         });
     }
@@ -81,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
                 path = uri.getPath().toString();
+                ReadFile tempRead = new ReadFile();
+                tempRead.readFile(path);
+                Log.i("path", path);
             }
             if (path != null) {// path非空
                 Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
