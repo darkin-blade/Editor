@@ -1,9 +1,11 @@
 package com.example.helloworld;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,6 +25,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 首次检察权限
+        String permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+        int check_result = ActivityCompat.checkSelfPermission(this, permission);// `允许`返回0,`拒绝`返回-1
+        if (check_result != PackageManager.PERMISSION_GRANTED) {// 没有`写`权限
+            ActivityCompat.requestPermissions(this, new String[]{permission}, 1);// 获取`写`权限
+        }
 
         // 打开文件系统
         Button openBtn = findViewById(R.id.openButton);// `打开`按钮

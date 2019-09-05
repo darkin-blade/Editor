@@ -14,12 +14,13 @@ import java.io.StringReader;
 public class NewFile {
     public String newFile(String filePath, String fileName, Activity activity) {
         try {
-            // 检察权限
-            int permission = ActivityCompat.checkSelfPermission(activity, "android.permission.WRITE_EXTERNAL_STORAGE");// `允许`返回0,`拒绝`返回-1
-            if (permission != PackageManager.PERMISSION_GRANTED) {// 没有`写`权限
-                ActivityCompat.requestPermissions(activity, new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"}, 1);// 获取`写`权限
+            // 重新检察权限
+            String permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+            int check_result = ActivityCompat.checkSelfPermission(activity, permission);// `允许`返回0,`拒绝`返回-1
+            if (check_result != PackageManager.PERMISSION_GRANTED) {// 没有`写`权限
+                ActivityCompat.requestPermissions(activity, new String[]{permission}, 1);// 获取`写`权限
             }
-
+            // 创建目录
             File dir = new File(filePath);
             if (!dir.exists()) {// 目录不存在
                 if (dir.mkdir()) {// 创建目录
