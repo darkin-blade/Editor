@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 String sd_path = Environment.getExternalStorageDirectory().getAbsolutePath();// 获取内置存储目录
                 Log.i("newBtn", sd_path);
                 NewFile temp = new NewFile();
-                String result = temp.newFile(sd_path + "/Editor", null, MainActivity.this);
+                String result = temp.newFile(sd_path + "/Editor/", MainActivity.this);
                 Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
