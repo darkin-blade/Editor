@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -7,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
 import com.example.helloworld.functions.ReadFile;
 
@@ -72,24 +75,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
         if (resultCode == Activity.RESULT_OK) {
             String path = null;
             if (requestCode == 1) {// `打开`按钮
                 Uri uri = data.getData();
-                path = uri.getPath();
+
+                // 转换文件路径为绝对路径
+//                path = uri.getPath();
+                GetPath tempPath = new GetPath();
+                path = tempPath.getPathFromUri(uri, this);
+                Log.i("onActivityResult", path);
                 // 读取文件内容
 //                ReadFile tempRead = new ReadFile();
 //                tempRead.readFile(path);
-//                Log.i("path", path);
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
                 path = uri.getPath();
             }
             if (path != null) {// path非空
                 Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
-                Log.i("onActivityResult", path);
             }
         }
     }
