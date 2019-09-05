@@ -6,9 +6,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.File;
+
+import com.example.helloworld.functions.NewFile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button newBtn = findViewById(R.id.newButton);// `新建`按钮
-        newBtn.setOnClickListener(new View.OnClickListener() {
+        Button picBtn = findViewById(R.id.picButton);// `图片`按钮
+        picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);//intent  action属性
@@ -42,17 +48,34 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2);
             }
         });
+
+        Button newBtn = findViewById(R.id.newButton);// `新建`按钮
+        newBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String sd_path = Environment.getExternalStorageDirectory().getAbsolutePath();// 获取内置存储目录
+                Log.i("newBtn", sd_path);
+                NewFile temp = new NewFile();
+                String result = String.valueOf(temp.newFile(sd_path + "/Editor", null));
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1) {
+            String path = null;
+            if (requestCode == 1) {// `打开`按钮
                 Uri uri = data.getData();
-                Toast.makeText(this, "file path:"+uri.getPath().toString(), Toast.LENGTH_SHORT).show();
-            } else if (requestCode == 2) {
+                path = uri.getPath().toString();
+            } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
-                Toast.makeText(this, "image path:"+uri.getPath().toString(), Toast.LENGTH_SHORT).show();
+                path = uri.getPath().toString();
+            }
+            if (path != null) {// path非空
+                Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
+                Log.i("onActivityResult", path);
             }
         }
     }
