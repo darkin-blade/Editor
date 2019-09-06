@@ -90,6 +90,9 @@
         android:background="@color/grey"
         android:textCursorDrawable="@drawable/cursor"
         android:textColor="@drawable/font_color"
+
+        android:textSelectHandle="@drawable/select_handle"
+        android:textSelectHandleLeft="@drawable/select_handle_left"
         android:scrollbars="vertical"
 
         app:layout_constraintTop_toTopOf="parent"
