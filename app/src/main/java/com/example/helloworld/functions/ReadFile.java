@@ -15,11 +15,10 @@ import java.io.RandomAccessFile;
 public class ReadFile extends FileManager {
     public int readFile(String file_path, EditText text) {
         File file = new File(file_path);
-        Log.i(file_path = " length", String.valueOf(file.length()));
-
         if (!file.exists()) {// TODO 文件不存在
             return -1;
         }
+
         try {
             int file_length = (int) file.length();// 计算文件长度
             if (file_length + 16 < 0) {// TODO 溢出
@@ -30,7 +29,9 @@ public class ReadFile extends FileManager {
             // 读取文件内容
             RandomAccessFile raFile = new RandomAccessFile(file, "r");
             raFile.read(file_content);
-            text.setText(file_content.toString().toCharArray(), 0, file_length);
+            for (int i = 0; i < 4 ; i ++) {
+                text.setText(file_content.toString().toCharArray(), i, 1);
+            }
             return 0;
         } catch (FileNotFoundException e) {
             e.printStackTrace();

@@ -84,8 +84,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="8dp"
 
-        android:inputType="textMultiLine"
-        android:maxLines="1"
+        android:inputType="textCapSentences"
         android:gravity="start|top"
         android:scrollbars="vertical"
 
