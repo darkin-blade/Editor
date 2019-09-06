@@ -94,6 +94,7 @@
         android:textSelectHandle="@drawable/select_handle"
         android:textSelectHandleLeft="@drawable/select_handle_left"
         android:textSelectHandleRight="@drawable/select_handle_right"
+        android:textColorHighlight="@color/blue_light"
         android:scrollbars="vertical"
 
         app:layout_constraintTop_toTopOf="parent"
