@@ -11,16 +11,22 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
+
 /** 用于转换路径
  *
  */
 
 public class GetPath extends FileManager {
     public static String getPathFromUri(Context context, Uri uri) {
-        Log.i("uri", uri.getPath());
+        Log.i("uri", uri.toString());
+        Log.i("uri path", uri.getPath());
+        Log.i("uri scheme", uri.getScheme());
+        Log.i("uri authority", uri.getAuthority());
+
         String path = null;
 
-        // 以file://开头的
+        // 以file://开头
         if (ContentResolver.SCHEME_FILE.equals(uri.getScheme())) {
             path = uri.getPath();
             return path;
@@ -50,7 +56,7 @@ public class GetPath extends FileManager {
                     final String[] split = docId.split(":");
                     final String type = split[0];
                     if ("primary".equalsIgnoreCase(type)) {
-                        path = Environment.getExternalStorageDirectory() + "/" + split[1];
+                        path = Environment.getExternalStorageDirectory() + "/" + split[1];// TODO
                         return path;
                     }
                 } else if (isDownloadsDocument(uri)) {
@@ -78,10 +84,20 @@ public class GetPath extends FileManager {
                     path = getDataColumn(context, contentUri, selection, selectionArgs);
                     return path;
                 }
+            } else if ("cn.wps.moffice_eng.fileprovider".equals(uri.getAuthority())) {// 用WPS打开
+                if (uri.getPath().matches("/external(.*)")) {
+                    path = uri.getPath().replace("/external", Environment.getExternalStorageDirectory().toString());// 替换/external前缀
+                    File temp = new File(path);
+                    Log.i("file fuck", String.valueOf(temp.exists()));
+                    return path;
+                } else {
+                    Log.i("not fuck", uri.getPath());
+                }
+            } else {
+                ;// TODO
             }
         }
 
-        Log.i("fuck", uri.getPath());
         return null;
     }
 
