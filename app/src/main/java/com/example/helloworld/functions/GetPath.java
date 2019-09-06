@@ -85,6 +85,8 @@ public class GetPath extends FileManager {
                     path = getDataColumn(context, contentUri, selection, selectionArgs);
                     return path;
                 }
+            } else if (true) {// TODO
+                return "this kind of path is not supported";
             } else if ("cn.wps.moffice_eng.fileprovider".equals(uri.getAuthority())) {// 用WPS打开
                 if (uri.getPath().matches("/external(.*)")) {
                     path = uri.getPath().replace("/external", Environment.getExternalStorageDirectory().toString());// 替换/external前缀

@@ -86,6 +86,7 @@
 
         android:inputType="textMultiLine"
         android:gravity="start|top"
+        android:scrollbars="vertical"
 
         android:background="@color/grey"
         android:textCursorDrawable="@drawable/cursor"
@@ -95,7 +96,6 @@
         android:textSelectHandleLeft="@drawable/select_handle_left"
         android:textSelectHandleRight="@drawable/select_handle_right"
         android:textColorHighlight="@color/blue_light"
-        android:scrollbars="vertical"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
