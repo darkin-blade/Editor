@@ -3,9 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+
+    android:background="@color/grey"
+    android:id="@+id/appBackground">
 
     <!-- `打开`按钮 -->
     <Button
@@ -70,5 +74,23 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/editText8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="8dp"
+
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+
+        android:background="@color/grey"
+        android:textCursorDrawable="@drawable/cursor"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
