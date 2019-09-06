@@ -15,7 +15,7 @@ import java.io.File;
  */
 
 public class NewFile extends FileManager {// 继承用于打印信息
-    public void newFile(String file_path, Activity activity) {
+    public int newFile(String file_path, Activity activity) {
         String file_result = "error";
         try {
             // 重新检察权限
@@ -31,7 +31,7 @@ public class NewFile extends FileManager {// 继承用于打印信息
             if (!dir.exists()) {// 目录不存在
                 if (!dir.mkdir()) {// 创建目录
                     showResult("mkdir " + file_path + " failed", activity);
-                    return;// 创建目录失败,直接返回
+                    return -1;// 创建目录失败,直接返回
                 } else {// 创建新的目录
                     Log.i("newFile", "mkdir succeed");
                 }
@@ -53,14 +53,15 @@ public class NewFile extends FileManager {// 继承用于打印信息
 
             if (!tempFile.createNewFile()) {// 创建临时文件
                 showResult("create " + file_path + file_name + file_num + " failed", activity);// 创建文件失败
+                return -1;
             } else {
                 showResult("create " + file_path + file_name + file_num + " succeed", activity);// 创建文件成功
+                return 0;
             }
-            return;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         showResult("error", activity);
-        return;
+        return -1;
     }
 }

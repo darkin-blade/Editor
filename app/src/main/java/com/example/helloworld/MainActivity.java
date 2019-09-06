@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.helloworld.functions.FileManager;
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
+import com.example.helloworld.functions.WriteFile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -75,7 +76,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 EditText text = findViewById(R.id.editText1);
-                Toast.makeText(MainActivity.this, text.getText().toString(), Toast.LENGTH_LONG).show();
+                WriteFile tempWrite = new WriteFile();
+                String file_name = MainActivity.this.getExternalFilesDir(".").getAbsolutePath() + "/" + "temp0";
+                int result = tempWrite.writeFile(text.getText().toString(), file_name);
+                Toast.makeText(MainActivity.this, String.valueOf(result) + " " + file_name, Toast.LENGTH_LONG).show();
             }
         });
     }
