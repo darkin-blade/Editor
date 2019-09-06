@@ -66,10 +66,20 @@ public class MainActivity extends AppCompatActivity {
         newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sd_path = Environment.getExternalStorageDirectory().getAbsolutePath();// 获取内置存储目录
+                String sd_path = MainActivity.this.getExternalFilesDir(".").getAbsolutePath();// 获取内置存储目录
+                Log.i("sdcard", sd_path);
                 // 新建文件
                 NewFile tempNew = new NewFile();
                 tempNew.newFile(sd_path + "/Editor/", MainActivity.this);
+            }
+        });
+
+        Button testButton = findViewById(R.id.testButton);// `测试`按钮,测试用
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, MainActivity.this.getExternalFilesDir(".").getAbsolutePath(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "internal:" + System.getenv("EXTERNAL_STORAGE"), Toast.LENGTH_LONG).show();
             }
         });
     }
