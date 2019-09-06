@@ -21,9 +21,10 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
 
+        android:background="@drawable/oval_blue"
         android:text="open"
         android:textColor="@color/white"
-        android:background="@drawable/oval_blue"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
     <!-- `新建`按钮 -->
@@ -78,16 +79,18 @@
     <EditText
         android:id="@+id/editText8"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginRight="8dp"
 
-        android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:gravity="start|top"
 
         android:background="@color/grey"
         android:textCursorDrawable="@drawable/cursor"
+        android:textColor="@drawable/font_color"
+        android:scrollbars="vertical"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
