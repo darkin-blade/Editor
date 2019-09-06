@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 新建文件
                 NewFile tempNew = new NewFile();
-                tempNew.newFile("Editor/", MainActivity.this);
+                tempNew.newFile("/", MainActivity.this);
             }
         });
 
