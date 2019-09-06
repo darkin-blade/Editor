@@ -10,18 +10,14 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.io.File;
-
 import com.example.helloworld.functions.FileManager;
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
-import com.example.helloworld.functions.ReadFile;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -67,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
         newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String sd_path = MainActivity.this.getExternalFilesDir(".").getAbsolutePath();// 获取内置存储目录
-//                Log.i("sdcard", sd_path);
                 // 新建文件
                 NewFile tempNew = new NewFile();
                 tempNew.newFile("Editor/", MainActivity.this);
@@ -95,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // 转换文件路径为绝对路径
                 GetPath tempPath = new GetPath();
-                path = tempPath.getPathFromUri(uri, this);
+                path = tempPath.getPathFromUri(this, uri);
                 // 读取文件内容
 //                ReadFile tempRead = new ReadFile();
 //                tempRead.readFile(path);
