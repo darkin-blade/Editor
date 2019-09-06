@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import com.example.helloworld.functions.FileManager;
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
 import com.example.helloworld.functions.ReadFile;
@@ -66,11 +67,11 @@ public class MainActivity extends AppCompatActivity {
         newBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String sd_path = MainActivity.this.getExternalFilesDir(".").getAbsolutePath();// 获取内置存储目录
-                Log.i("sdcard", sd_path);
+//                String sd_path = MainActivity.this.getExternalFilesDir(".").getAbsolutePath();// 获取内置存储目录
+//                Log.i("sdcard", sd_path);
                 // 新建文件
                 NewFile tempNew = new NewFile();
-                tempNew.newFile(sd_path + "/Editor/", MainActivity.this);
+                tempNew.newFile("Editor/", MainActivity.this);
             }
         });
 
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, MainActivity.this.getExternalFilesDir(".").getAbsolutePath(), Toast.LENGTH_LONG).show();
-//                Toast.makeText(MainActivity.this, "internal:" + System.getenv("EXTERNAL_STORAGE"), Toast.LENGTH_LONG).show();
+                FileManager temp = new FileManager();
             }
         });
     }

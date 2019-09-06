@@ -12,4 +12,8 @@ public class FileManager {
         Toast.makeText(activity, result, Toast.LENGTH_SHORT).show();
         return;
     }
+
+    public void test(int s) {
+        s = s + 1;
+    }
 }

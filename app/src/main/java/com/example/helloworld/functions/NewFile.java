@@ -6,6 +6,8 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
+import com.example.helloworld.MainActivity;
+
 import java.io.File;
 
 /** 用于创建新的文件
@@ -24,6 +26,7 @@ public class NewFile extends FileManager {// 继承用于打印信息
             }
 
             // 创建目录
+            file_path = activity.getExternalFilesDir(".").getAbsolutePath() + "/" + file_path;// 获取app目录
             File dir = new File(file_path);
             if (!dir.exists()) {// 目录不存在
                 if (!dir.mkdir()) {// 创建目录
