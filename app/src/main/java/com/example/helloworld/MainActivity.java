@@ -96,9 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 // 转换文件路径为绝对路径
                 GetPath tempPath = new GetPath();
                 path = tempPath.getPathFromUri(this, uri);
-                // 读取文件内容
+
+                // 读取文件内容并显示
                 ReadFile tempRead = new ReadFile();
-                tempRead.readFile(path);
+                EditText text = findViewById(R.id.editText1);
+                tempRead.readFile(path, text);
+
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
                 path = uri.getPath();
