@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.helloworld.functions.FileManager;
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
+import com.example.helloworld.functions.ReadFile;
 import com.example.helloworld.functions.WriteFile;
 
 
@@ -96,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                 GetPath tempPath = new GetPath();
                 path = tempPath.getPathFromUri(this, uri);
                 // 读取文件内容
-//                ReadFile tempRead = new ReadFile();
-//                tempRead.readFile(path);
+                ReadFile tempRead = new ReadFile();
+                tempRead.readFile(path);
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
                 path = uri.getPath();
