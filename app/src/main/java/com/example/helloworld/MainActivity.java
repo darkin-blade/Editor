@@ -35,6 +35,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        if (action.equals("android.intent.action.VIEW")) {// 由其他软件打开本软件
+            Log.i("fuck", action);
+            Uri uri = intent.getData();
+            Log.i("fuck", uri.toString());
+            GetPath temp = new GetPath();
+            Log.i("fuck path", temp.getPathFromUri(MainActivity.this, uri));
+        }
+
         // 首次检察权限
         String permission = "android.permission.WRITE_EXTERNAL_STORAGE";
         int check_result = ActivityCompat.checkSelfPermission(this, permission);// `允许`返回0,`拒绝`返回-1
@@ -103,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -130,9 +141,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, path + " open failed", Toast.LENGTH_LONG).show();
                 }
 
-            } else if (requestCode == 2) {// TODO
+            } else {// TODO
                 ;
             }
         }
+    }
+
+    public void loadFromDir() {
+        Log.i("fuck", "shit");
     }
 }

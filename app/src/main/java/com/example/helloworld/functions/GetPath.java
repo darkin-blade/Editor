@@ -85,23 +85,25 @@ public class GetPath extends FileManager {
                     path = getDataColumn(context, contentUri, selection, selectionArgs);
                     return path;
                 }
-            } else if (true) {// TODO
-                return "this kind of path is not supported";
-            } else if ("cn.wps.moffice_eng.fileprovider".equals(uri.getAuthority())) {// 用WPS打开
+            } else if ("cn.wps.moffice_eng.fileprovider".equals(uri.getAuthority())) {// TODO 用WPS打开
                 if (uri.getPath().matches("/external(.*)")) {
                     path = uri.getPath().replace("/external", Environment.getExternalStorageDirectory().toString());// 替换/external前缀
                     File temp = new File(path);
                     Log.i("file fuck", String.valueOf(temp.exists()));
                     return path;
-                } else {
+                } else {// ???什么情况
                     Log.i("not fuck", uri.getPath());
+                    return "this kind of path is not supported";// TODO
                 }
-            } else {
+            } else {// content://com.huawei.hidisk.fileprovider/root
+                Log.i("authority", uri.getAuthority());
+                File file = new File(uri.toString().replace(uri.getAuthority(), ""));
+                Log.i("fuck exist", file.exists() + "");
                 ;// TODO
             }
         }
 
-        return null;
+        return "this kind of path is not supported";
     }
 
     private static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
