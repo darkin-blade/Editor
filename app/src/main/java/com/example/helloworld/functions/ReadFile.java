@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
 
 /** 用于读取文件内容
  *
@@ -24,15 +27,22 @@ public class ReadFile extends FileManager {
             if (file_length + 16 < 0) {// TODO 溢出
                 new AssertionError("file length error");
             }
-            byte[] file_content = new byte[file_length + 16];// TODO 大小不够
+            byte[] file_content = new byte[file_length];// TODO 大小不够
 
             // 读取文件内容
+            Log.i("read file", file_path);
             RandomAccessFile raFile = new RandomAccessFile(file, "r");
             raFile.read(file_content);
-            for (int i = 0; i < 4 ; i ++) {
-                text.setText(file_content.toString().toCharArray(), i, 1);
-            }
+            Charset cSet = Charset.forName("UTF-8");
+            ByteBuffer bBuffer = ByteBuffer.allocate(file_length);
+            bBuffer.put(file_content);
+            bBuffer.flip();
+            CharBuffer cBuffer = cSet.decode(bBuffer);
+            Log.i("file length", file_length + "===" + cBuffer.array().length);
+            text.setText(cBuffer.array(), 0, cBuffer.length());
+
             return 0;
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
