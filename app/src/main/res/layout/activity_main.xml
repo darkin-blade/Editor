@@ -56,9 +56,9 @@
         <Button
             android:id="@+id/picButton"
 
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="48dp"
 
             android:background="@drawable/button_hide"
             android:textColor="@color/white"/>
