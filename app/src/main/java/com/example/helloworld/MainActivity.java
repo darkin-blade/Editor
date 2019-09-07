@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     String[] current_file = new String[5];// 最多同时打开5个文件
     int file_total_num = 0;// 当前打开的文件总数
     int file_cur_num = 0;// 当前窗口的文件编号
+    int buttonMove = 240;// 所有button一起移动
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +62,11 @@ public class MainActivity extends AppCompatActivity {
         Button picBtn = findViewById(R.id.picButton);// TODO 测试按钮
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view) {// TODO 点击后按钮向右移动
-                ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.buttons), "translationX", 240);
+            public void onClick(final View view) {// TODO
+                ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.buttons), "translationX", buttonMove + 240);
                 animator.setDuration(250);
                 animator.start();
+                buttonMove = -buttonMove;// 来回移动
             }
         });
 
