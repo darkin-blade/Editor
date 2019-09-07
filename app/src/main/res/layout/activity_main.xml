@@ -52,11 +52,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <!-- `控制`按钮 -->
+        <!-- `显示/隐藏`按钮 -->
         <Button
             android:id="@+id/picButton"
 
-            android:layout_width="40dp"
+            android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginLeft="16dp"
 

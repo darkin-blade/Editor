@@ -13,15 +13,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.example.helloworld.functions.FileManager;
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
 import com.example.helloworld.functions.ReadFile;
@@ -68,9 +63,13 @@ public class MainActivity extends AppCompatActivity {
                 animator.setDuration(250);
                 animator.start();
                 buttonMove = -buttonMove;
-                // 修改`控制`按钮样式
+                // 修改`隐藏/显示`按钮样式
                 Button temp = findViewById(R.id.picButton);
-                temp.setBackgroundResource(R.drawable.oval_blue);
+                if (buttonMove == -240) {// 此时为`显示`按钮
+                    temp.setBackgroundResource(R.drawable.button_show);
+                } else {// `隐藏`按钮
+                    temp.setBackgroundResource(R.drawable.button_hide);
+                }
             }
         });
 
