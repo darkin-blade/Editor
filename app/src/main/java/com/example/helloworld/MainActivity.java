@@ -2,9 +2,9 @@ package com.example.helloworld;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {// TODO 点击后按钮向右移动
-                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.button_translate);
-                animation.setFillAfter(true);
-                findViewById(R.id.buttons).startAnimation(animation);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.buttons), "translationX", 240);
+                animator.setDuration(250);
+                animator.start();
             }
         });
 
