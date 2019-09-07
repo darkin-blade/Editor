@@ -39,7 +39,7 @@ public class ReadFile extends FileManager {
             bBuffer.flip();
             CharBuffer cBuffer = cSet.decode(bBuffer);
             Log.i("file length", file_length + "===" + cBuffer.array().length);
-            text.setText(cBuffer.array(), 0, cBuffer.length());
+            text.setText(cBuffer.array(), 0, cBuffer.length());// 防止越界
 
             return 0;
 
