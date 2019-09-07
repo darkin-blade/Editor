@@ -13,6 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -58,8 +61,10 @@ public class MainActivity extends AppCompatActivity {
         Button picBtn = findViewById(R.id.picButton);// TODO 测试按钮
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {// TODO
-                ;
+            public void onClick(final View view) {// TODO 点击后按钮向右移动
+                Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.button_translate);
+                animation.setFillAfter(true);
+                findViewById(R.id.buttons).startAnimation(animation);
             }
         });
 
