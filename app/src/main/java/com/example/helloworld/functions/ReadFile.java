@@ -33,6 +33,8 @@ public class ReadFile extends FileManager {
             Log.i("read file", file_path);
             RandomAccessFile raFile = new RandomAccessFile(file, "r");
             raFile.read(file_content);
+
+            // 将byte转成char
             Charset cSet = Charset.forName("UTF-8");
             ByteBuffer bBuffer = ByteBuffer.allocate(file_length);
             bBuffer.put(file_content);

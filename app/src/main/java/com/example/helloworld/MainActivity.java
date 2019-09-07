@@ -25,6 +25,8 @@ import com.example.helloworld.functions.WriteFile;
 
 public class MainActivity extends AppCompatActivity {
 
+    String[] current_file = new String[5];// 最多同时打开5个文件
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,16 +39,13 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{permission}, 1);// 获取`写`权限
         }
 
-        // 打开文件系统
+        // 调用系统文件管理
         Button openBtn = findViewById(R.id.openButton);// `打开`按钮
         openBtn.setOnClickListener(new View.OnClickListener() {// 点击`打开`按钮
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");// 所有文件
-                // intent.setType("image/*");// 图片
-                // intent.setType("audio/*");// 音频
-                // intent.setType("video/*");// 视频
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 startActivityForResult(intent, 1);
             }
@@ -72,15 +71,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button testButton = findViewById(R.id.testButton);// `测试`按钮,测试用
-        testButton.setOnClickListener(new View.OnClickListener() {
+        Button saveButton = findViewById(R.id.saveButton);// `保存`按钮
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText text = findViewById(R.id.editText1);
-                WriteFile tempWrite = new WriteFile();
-                String file_name = MainActivity.this.getExternalFilesDir(".").getAbsolutePath() + "/" + "temp0";
-                int result = tempWrite.writeFile(text.getText().toString(), file_name);
-                Toast.makeText(MainActivity.this, String.valueOf(result) + " " + file_name, Toast.LENGTH_LONG).show();
+                if (current_file[0] == null) {// 没有打开任何文件
+                    Toast.makeText(MainActivity.this, "fuck", Toast.LENGTH_SHORT).show();
+                } else {
+                    // 将EditText的内容写入当前文件
+                    EditText text = findViewById(R.id.editText1);
+                    WriteFile tempWrite = new WriteFile();
+                    String file_name = current_file[0];// TODO 当前文件
+                    int result = tempWrite.writeFile(text.getText().toString(), file_name);
+                    if (result == 0) {// 保存成功
+                        Toast.makeText(MainActivity.this, file_name + " save succeed", Toast.LENGTH_LONG).show();
+                    } else {// 保存失败
+                        Toast.makeText(MainActivity.this, file_name + " save failed", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
         });
     }
@@ -100,7 +108,12 @@ public class MainActivity extends AppCompatActivity {
                 // 读取文件内容并显示
                 ReadFile tempRead = new ReadFile();
                 EditText text = findViewById(R.id.editText1);
-                tempRead.readFile(path, text);
+                int result = tempRead.readFile(path, text);
+
+                // 读取文件路径
+                if (result != -1) {// 读取成功
+                    current_file[0] = path;// TODO 保存路径
+                }
 
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
