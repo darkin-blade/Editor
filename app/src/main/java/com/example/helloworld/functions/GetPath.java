@@ -89,18 +89,17 @@ public class GetPath extends FileManager {
                 if (uri.getPath().matches("/external(.*)")) {
                     path = uri.getPath().replace("/external", Environment.getExternalStorageDirectory().toString());// 替换/external前缀
                     File temp = new File(path);
-                    Log.i("file fuck", String.valueOf(temp.exists()));
                     return path;
                 } else {// ???什么情况
                     Log.i("not fuck", uri.getPath());
                     return "this kind of path is not supported";// TODO
                 }
             } else if ("com.huawei.hidisk.fileprovider".equals(uri.getAuthority())) {// TODO 用华为文件管理器打开
-                Log.i("fuck authority", uri.getAuthority());
-                File file = new File(uri.getPath());
-                Log.i("fuck exist", file.exists() + "===" + uri.getPath());
-                Log.i("fuck path", uri.getPath());
-                ;// TODO
+                String path_short = uri.getPath().replace("/root", "");// 必须要剪掉"/root"前缀
+                File file = new File(path_short);
+                return path_short;// 绝对地址
+            } else {// TODO
+                Log.i(uri.getAuthority(), uri.getPath());// TODO
             }
         }
 

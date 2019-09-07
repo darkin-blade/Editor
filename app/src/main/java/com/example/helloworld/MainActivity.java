@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
+import com.example.helloworld.functions.OpenFile;
 import com.example.helloworld.functions.ReadFile;
 import com.example.helloworld.functions.WriteFile;
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     String[] current_file = new String[5];// 最多同时打开5个文件
     int file_total_num = 0;// 当前打开的文件总数
     int file_cur_num = 0;// 当前窗口的文件编号
-    int buttonMove = 240;// 所有button一起移动
+    int buttonMove = 240;// 所有button一起移动的水平参数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-        String action = intent.getAction();
+        String action = intent.getAction();// 判断本软件启动的方式
         if (action.equals("android.intent.action.VIEW")) {// 由其他软件打开本软件
-            Log.i("fuck", action);
-            Uri uri = intent.getData();
-            Log.i("fuck", uri.toString());
-            GetPath temp = new GetPath();
-            Log.i("fuck path", temp.getPathFromUri(MainActivity.this, uri));
+            OpenFile tempOpen = new OpenFile();
+            EditText text = findViewById(R.id.editText1);// 获取编辑区域
+            String result = tempOpen.openFile(intent, MainActivity.this, text);// 打开并加载文件
+            if (result != null) {// 打开成功
+                ;// TODO
+            }
         }
 
         // 首次检察权限
@@ -133,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 EditText text = findViewById(R.id.editText1);
                 int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
 
-                // 读取文件路径
+                // 读取文件路径 TODO
                 if (result != -1) {// 打开文件成功
                     current_file[0] = path;// TODO 保存路径
                     Toast.makeText(this, path + " open succeed", Toast.LENGTH_LONG).show();
@@ -147,7 +149,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadFromDir() {
-        Log.i("fuck", "shit");
+    public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
+        if (file_name != null) {// 文件打开成功
+            current_file[0] = file_name;// 保存路径
+            Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
+        } else {// 文件打开失败
+            Toast.makeText(this, file_name + " open failed", Toast.LENGTH_LONG).show();
+        }
     }
 }
