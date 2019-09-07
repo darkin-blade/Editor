@@ -43,29 +43,14 @@
 
     <LinearLayout
         android:layout_width="320dp"
-        android:layout_height="64dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginRight="16dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <!-- `打开`按钮 -->
-        <Button
-            android:id="@+id/openButton"
-
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
-
-            android:background="@drawable/oval_blue"
-            android:text="open"
-            android:textColor="@color/white"
-
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-        <!-- `新建`按钮 -->
         <Button
             android:id="@+id/picButton"
 
@@ -75,10 +60,9 @@
 
             android:background="@drawable/oval_blue1"
             android:text="pic"
-            android:textColor="@color/white"
+            android:textColor="@color/white"/>
 
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
+        <!-- `新建`按钮 -->
         <Button
             android:id="@+id/newButton"
 
@@ -88,9 +72,7 @@
 
             android:background="@drawable/oval_blue2"
             android:text="new"
-            android:textColor="@color/white"
-
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            android:textColor="@color/white"/>
 
         <!-- `保存`按钮 -->
         <Button
@@ -102,9 +84,20 @@
 
             android:background="@drawable/oval_blue3"
             android:text="save"
-            android:textColor="@color/white"
+            android:textColor="@color/white"/>
 
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <!-- `打开`按钮 -->
+        <Button
+            android:id="@+id/openButton"
+
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="16dp"
+
+            android:background="@drawable/oval_blue"
+            android:text="open"
+            android:textColor="@color/white"/>
+
     </LinearLayout>
 
 
