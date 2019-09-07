@@ -7,8 +7,7 @@
     android:viewportWidth="120"
     android:viewportHeight="120">
     <path
-        android:fillColor="@color/black"
-        android:fillType="nonZero"
+        android:fillColor="#eeeeee"
         android:pathData=
             "M40,10 L50,0 110,60
              50,120 40,110 90,60"/>
