@@ -60,8 +60,7 @@
             android:layout_height="64dp"
             android:layout_marginLeft="16dp"
 
-            android:background="@drawable/oval_blue3"
-            android:text="pic"
+            android:background="@drawable/button_hide"
             android:textColor="@color/white"/>
 
         <!-- `新建`按钮 -->
