@@ -59,15 +59,7 @@ public class MainActivity extends AppCompatActivity {
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                LinearLayout layout = findViewById(R.id.buttons);
-                ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) layout.getLayoutParams();
-                Log.i("left", "===" + lp.leftMargin);
-                Log.i("top", "===" + lp.topMargin);
-                Log.i("right", "===" + lp.rightMargin);
-                Log.i("bottom", "===" + lp.bottomMargin);
-                Log.i("fuck", "===" + lp.width);
-                Log.i("fuck", "===" + lp.height);
-                lp.setMargins(lp.leftMargin + 200, lp.topMargin, lp.rightMargin - 200, lp.bottomMargin);
+                ;
             }
         });
 
