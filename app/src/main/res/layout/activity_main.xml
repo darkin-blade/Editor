@@ -42,6 +42,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="320dp"
         android:layout_height="80dp"
         android:orientation="horizontal"
@@ -58,7 +59,7 @@
             android:layout_height="64dp"
             android:layout_marginLeft="16dp"
 
-            android:background="@drawable/oval_blue1"
+            android:background="@drawable/oval_blue3"
             android:text="pic"
             android:textColor="@color/white"/>
 
@@ -82,7 +83,7 @@
             android:layout_height="64dp"
             android:layout_marginLeft="16dp"
 
-            android:background="@drawable/oval_blue3"
+            android:background="@drawable/oval_blue1"
             android:text="save"
             android:textColor="@color/white"/>
 
