@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 // 读取文件内容并显示
                 ReadFile tempRead = new ReadFile();
                 EditText text = findViewById(R.id.editText1);
-                int result = tempRead.readFile(path, text);
+                int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
 
                 // 读取文件路径
                 if (result != -1) {// 打开文件成功

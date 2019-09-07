@@ -95,10 +95,11 @@ public class GetPath extends FileManager {
                     Log.i("not fuck", uri.getPath());
                     return "this kind of path is not supported";// TODO
                 }
-            } else {// content://com.huawei.hidisk.fileprovider/root
-                Log.i("authority", uri.getAuthority());
-                File file = new File(uri.toString().replace(uri.getAuthority(), ""));
-                Log.i("fuck exist", file.exists() + "");
+            } else if ("com.huawei.hidisk.fileprovider".equals(uri.getAuthority())) {// TODO 用华为文件管理器打开
+                Log.i("fuck authority", uri.getAuthority());
+                File file = new File(uri.getPath());
+                Log.i("fuck exist", file.exists() + "===" + uri.getPath());
+                Log.i("fuck path", uri.getPath());
                 ;// TODO
             }
         }
