@@ -62,11 +62,15 @@ public class MainActivity extends AppCompatActivity {
         Button picBtn = findViewById(R.id.picButton);// TODO 测试按钮
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View view) {// TODO
+            public void onClick(final View view) {
+                // 隐藏/显示所有按钮
                 ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.buttons), "translationX", buttonMove + 240);
                 animator.setDuration(250);
                 animator.start();
-                buttonMove = -buttonMove;// 来回移动
+                buttonMove = -buttonMove;
+                // 修改`控制`按钮样式
+                Button temp = findViewById(R.id.picButton);
+                temp.setBackgroundResource(R.drawable.oval_blue);
             }
         });
 
