@@ -26,6 +26,8 @@ import com.example.helloworld.functions.WriteFile;
 public class MainActivity extends AppCompatActivity {
 
     String[] current_file = new String[5];// 最多同时打开5个文件
+    int file_total_num = 0;// 当前打开的文件总数
+    int file_cur_num = 0;// 当前窗口的文件编号
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,17 +113,16 @@ public class MainActivity extends AppCompatActivity {
                 int result = tempRead.readFile(path, text);
 
                 // 读取文件路径
-                if (result != -1) {// 读取成功
+                if (result != -1) {// 打开文件成功
                     current_file[0] = path;// TODO 保存路径
+                    Toast.makeText(this, path + " open succeed", Toast.LENGTH_LONG).show();
+                } else {// 打开文件失败
+                    Toast.makeText(this, path + " open failed", Toast.LENGTH_LONG).show();
                 }
 
             } else if (requestCode == 2) {// `图片`按钮
                 Uri uri = data.getData();
                 path = uri.getPath();
-            }
-            if (path != null) {// path非空
-                Log.i("onActivityResult", path);
-                Toast.makeText(this, path, Toast.LENGTH_LONG).show();
             }
         }
     }
