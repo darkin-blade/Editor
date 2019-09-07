@@ -27,6 +27,7 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- `新建`按钮 -->
     <Button
         android:id="@+id/picButton"
@@ -60,6 +61,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- `保存`按钮 -->
     <Button
         android:id="@+id/saveButton"
 

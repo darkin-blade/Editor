@@ -120,9 +120,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, path + " open failed", Toast.LENGTH_LONG).show();
                 }
 
-            } else if (requestCode == 2) {// `图片`按钮
-                Uri uri = data.getData();
-                path = uri.getPath();
+            } else if (requestCode == 2) {// TODO
+                ;
             }
         }
     }
