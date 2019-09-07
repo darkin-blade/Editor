@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 调用系统文件管理
-        Button openBtn = findViewById(R.id.openButton);// `打开`按钮
+        final Button openBtn = findViewById(R.id.openButton);// `打开`按钮
         openBtn.setOnClickListener(new View.OnClickListener() {// 点击`打开`按钮
             @Override
             public void onClick(View view) {
@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);//intent  action属性
-                intent.setType("image/*");
-                startActivityForResult(intent, 2);
+                Button openBtn = findViewById(R.id.openButton);
             }
         });
 
