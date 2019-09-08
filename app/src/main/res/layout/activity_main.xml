@@ -43,7 +43,7 @@
 
     <LinearLayout
         android:id="@+id/buttons"
-        android:layout_width="336dp"
+        android:layout_width="416dp"
         android:layout_height="80dp"
         android:orientation="horizontal"
         android:layout_marginBottom="0dp"
@@ -61,6 +61,18 @@
             android:layout_marginLeft="48dp"
 
             android:background="@drawable/button_hide"
+            android:textColor="@color/white"/>
+
+        <!-- `关闭`按钮 -->
+        <Button
+            android:id="@+id/closeButton"
+
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginLeft="16dp"
+
+            android:background="@drawable/oval_blue3"
+            android:text="close"
             android:textColor="@color/white"/>
 
         <!-- `新建`按钮 -->

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +26,8 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    String[] current_file = new String[5];// 最多同时打开5个文件
+    String[] current_temp = new String[5];// 所有打开文件对应的临时文件
+    String[] current_file = new String[5];// 最多支持打开5个文件
     int file_total_num = 0;// TODO 当前打开的文件总数
     int file_cur_num = -1;// TODO 当前窗口的文件编号
     int buttonMove = 240;// 所有button一起移动的水平参数
@@ -94,20 +94,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
 
-        if (current_file[0] == null) {// TODO 没有打开任何文件
+        if (current_temp[0] == null) {// TODO 没有打开任何文件
             return;// TODO
         } else {// TODO 检查当前文件是否为临时文件
-            File file = new File(current_file[0]);
+            File file = new File(current_temp[0]);
             String dir_path = file.getParent();// TODO 不包含"/."
             if (!Pattern.matches(dir_path + "(/.)*(/)*", MainActivity.this.getExternalFilesDir(".").getAbsolutePath())) {// 前者包含"/.
                 Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());
-                new AssertionError(current_file[0]);// 所有打开的文件都对应一个临时文件,不可能出现错误
+                new AssertionError(current_temp[0]);// 所有打开的文件都对应一个临时文件,不可能出现错误
             }
 
             // 将EditText的内容写入当前文件
             EditText text = findViewById(R.id.editText1);
             WriteFile tempWrite = new WriteFile();
-            String file_name = current_file[0];// TODO 当前文件
+            String file_name = current_temp[0];// TODO 当前文件
             int result = tempWrite.writeFile(text.getText().toString(), file_name);
             if (result == 0) {// 保存成功
                 Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
         if (result == 0) {// 文件打开成功
             file_cur_num = 0;// TODO 默认-1
-            current_file[file_cur_num] = file_name.replace("/.", "");// 保存路径到当前文件编号,删除多余"/."
+            current_temp[file_cur_num] = file_name.replace("/.", "");// TODO 保存路径到当前文件编号,删除多余"/."
             Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
         } else {// 文件打开失败
             Toast.makeText(this, file_name + " open failed", Toast.LENGTH_LONG).show();
@@ -174,13 +174,13 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (current_file[0] == null) {// TODO 没有打开任何文件
+                if (current_temp[0] == null) {// TODO 没有打开任何文件
                     Toast.makeText(MainActivity.this, "fuck", Toast.LENGTH_SHORT).show();
                 } else {
                     // 将EditText的内容写入当前文件
                     EditText text = findViewById(R.id.editText1);
                     WriteFile tempWrite = new WriteFile();
-                    String file_name = current_file[0];// TODO 当前文件
+                    String file_name = current_temp[0];// TODO 当前文件
                     int result = tempWrite.writeFile(text.getText().toString(), file_name);
                     if (result == 0) {// 保存成功
                         Toast.makeText(MainActivity.this, file_name + " save succeed", Toast.LENGTH_LONG).show();
