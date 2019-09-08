@@ -170,12 +170,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button saveButton = findViewById(R.id.saveButton);// `保存`按钮
-        saveButton.setOnClickListener(new View.OnClickListener() {
+        Button saveBtn = findViewById(R.id.saveButton);// `保存`按钮
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (current_temp[0] == null) {// TODO 没有打开任何文件
-                    Toast.makeText(MainActivity.this, "fuck", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "TODO save", Toast.LENGTH_SHORT).show();
                 } else {
                     // 将EditText的内容写入当前文件
                     EditText text = findViewById(R.id.editText1);
@@ -187,6 +187,16 @@ public class MainActivity extends AppCompatActivity {
                     } else {// 保存失败
                         Toast.makeText(MainActivity.this, file_name + " save failed", Toast.LENGTH_LONG).show();
                     }
+                }
+            }
+        });
+
+        Button closeBtn = findViewById(R.id.closeButton);// `关闭`按钮
+        closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
+                    ;
                 }
             }
         });
