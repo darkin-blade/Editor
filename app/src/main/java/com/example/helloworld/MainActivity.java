@@ -154,11 +154,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
 
-        String temp_name = MainActivity.this.getExternalFilesDir(".") + "/(./)*temp\\d{1,2}$";// 加上app目录前缀
-
         if (current_file[0] == null) {// TODO 没有打开任何文件
             return;// TODO
-        } else if (Pattern.matches(temp_name, current_file[0])) {// TODO 检查当前文件是否为临时文件
+        } else {// TODO 检查当前文件是否为临时文件
+            File file = new File(current_file[0]);
+            String dir_path = file.getParent();// TODO 不包含"/."
+            if (!Pattern.matches(dir_path + "(/.)*(/)*", MainActivity.this.getExternalFilesDir(".").getAbsolutePath())) {// 前者包含"/.
+                Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());
+                new AssertionError(current_file[0]);// 所有打开的文件都对应一个临时文件,不可能出现错误
+            }
 
             // 将EditText的内容写入当前文件
             EditText text = findViewById(R.id.editText1);
@@ -172,14 +176,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        Log.i("fuck tempname", temp_name);
-        Log.i("fuck " + current_file[0], Pattern.matches(temp_name, current_file[0]) + "");
     }
 
     public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
         if (result == 0) {// 文件打开成功
             file_cur_num = 0;// TODO 默认-1
-            current_file[file_cur_num] = file_name;// 保存路径到当前文件编号
+            current_file[file_cur_num] = file_name.replace("/.", "");// 保存路径到当前文件编号,删除多余"/."
             Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
         } else {// 文件打开失败
             Toast.makeText(this, file_name + " open failed", Toast.LENGTH_LONG).show();
