@@ -101,54 +101,26 @@
         <!-- `关闭`按钮 -->
         <Button
             android:id="@+id/closeButton"
-
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="12dp"
-
-            android:background="@drawable/oval_blue3"
             android:text="close"
-            android:textColor="@color/white"
-            android:textSize="10dp"/>
+            style="@style/blue3"/>
 
         <!-- `新建`按钮 -->
         <Button
             android:id="@+id/newButton"
-
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="12dp"
-
-            android:background="@drawable/oval_blue2"
             android:text="new"
-            android:textColor="@color/white"
-            android:textSize="10dp"/>
+            style="@style/blue2"/>
 
         <!-- `保存`按钮 -->
         <Button
             android:id="@+id/saveButton"
-
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="12dp"
-
-            android:background="@drawable/oval_blue1"
             android:text="save"
-            android:textColor="@color/white"
-            android:textSize="10dp"/>
+            style="@style/blue1"/>
 
         <!-- `打开`按钮 -->
         <Button
             android:id="@+id/openButton"
-
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginLeft="12dp"
-
-            android:background="@drawable/oval_blue"
             android:text="open"
-            android:textColor="@color/white"
-            android:textSize="10dp"/>
+            style="@style/blue"/>
 
     </LinearLayout>
 
