@@ -11,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.helloworld.functions.GetPath;
 import com.example.helloworld.functions.NewFile;
-import com.example.helloworld.functions.OpenFile;
 import com.example.helloworld.functions.ReadFile;
 import com.example.helloworld.functions.WriteFile;
 
@@ -49,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
             ReadFile tempRead = new ReadFile();
             EditText text = findViewById(R.id.editText1);
             int result = tempRead.readFile(path, text);// 如果文件不存在则会返回-1
+
+            // 加载文件路径
+            loadFile(path, result);
         }
 
         // 首次检察权限
@@ -140,13 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
 
                 // 读取文件路径 TODO
-                if (result != -1) {// 打开文件成功
-                    current_file[0] = path;// TODO 保存路径
-                    Toast.makeText(this, path + " open succeed", Toast.LENGTH_LONG).show();
-                } else {// 打开文件失败
-                    Toast.makeText(this, path + " open failed", Toast.LENGTH_LONG).show();
-                }
-
+                loadFile(path, result);
             } else {// TODO
                 ;
             }
@@ -154,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
-        if (file_name != null) {// 文件打开成功
+        if (result == 0) {// 文件打开成功
             current_file[0] = file_name;// 保存路径
             Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
         } else {// 文件打开失败
