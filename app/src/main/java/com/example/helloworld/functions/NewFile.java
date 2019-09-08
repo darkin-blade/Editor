@@ -1,12 +1,7 @@
 package com.example.helloworld.functions;
 
 import android.app.Activity;
-import android.content.pm.PackageManager;
 import android.util.Log;
-
-import androidx.core.app.ActivityCompat;
-
-import com.example.helloworld.MainActivity;
 
 import java.io.File;
 
@@ -69,6 +64,7 @@ public class NewFile extends FileManager {// 继承用于打印信息
                     Log.i("newFile", "dir already exists");
                 }
 
+                // 创建子文件
                 if (file.exists()) {// 文件已存在,直接报错
                     showResult(file_path + " already exists", activity);
                     return -1;// TODO
