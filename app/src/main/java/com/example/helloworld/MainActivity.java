@@ -1,6 +1,5 @@
 package com.example.helloworld;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -9,7 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button picBtn = findViewById(R.id.picButton);// TODO 测试按钮
+        Button picBtn = findViewById(R.id.ctrlButton);// TODO 控制`隐藏/显示`按钮
         picBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -81,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 animator.start();
                 buttonMove = -buttonMove;
                 // 修改`隐藏/显示`按钮样式
-                Button temp = findViewById(R.id.picButton);
+                Button temp = findViewById(R.id.ctrlButton);
                 if (buttonMove == -240) {// 此时为`显示`按钮
                     temp.setBackgroundResource(R.drawable.button_show);
                 } else {// `隐藏`按钮
@@ -123,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
         if (resultCode == Activity.RESULT_OK) {
