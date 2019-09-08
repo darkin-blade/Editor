@@ -16,16 +16,15 @@ import java.io.File;
 
 public class NewFile extends FileManager {// 继承用于打印信息
     public int newFile(String file_path, Activity activity) {
-        String file_result = "error";
         try {
             if (file_path.equals("")) {// 自动创建临时文件
                 // TODO 创建目录
-                String dir_path = activity.getExternalFilesDir(".").getAbsolutePath();
-                file_path = activity.getExternalFilesDir(".").getAbsolutePath() + "/" + file_path;// 获取app目录
-                File dir = new File(dir_path);
+                String dir_path = activity.getExternalFilesDir(".").getAbsolutePath() + "/";// TODO 获取app目录
+                Log.i("fuck parent", dir_path);
+                File dir = new File(dir_path);// 打开目录
                 if (!dir.exists()) {// 目录不存在
-                    if (!dir.mkdir()) {// 创建目录
-                        showResult("mkdir " + file_path + " failed", activity);
+                    if (!dir.mkdirs()) {//  创建多重目录
+                        showResult("mkdir " + dir_path + " failed", activity);
                         return -1;// 创建目录失败,直接返回
                     } else {// 创建新的目录
                         Log.i("newFile", "mkdir succeed");
@@ -35,25 +34,28 @@ public class NewFile extends FileManager {// 继承用于打印信息
                 }
 
                 // 创建文件
-                String file_name = "temp";// 临时文件名
+                String file_name = dir_path + "temp";// 临时文件名
                 int file_num = 0;// 临时文件编号
-                File tempFile = new File(file_path + file_name + file_num);
+                File tempFile = new File(file_name + file_num);
                 while (tempFile.exists()) {// 文件存在
                     file_num ++;// 一直找到一个不存在的文件名
-                    tempFile = new File(file_path + file_name + file_num);
+                    tempFile = new File(file_name + file_num);
                     if (file_num > 100) {// 临时文件数量限定,防止死循环
-                        throw new AssertionError("dead loop");
+                        return -1;// TODO 不允许创建
                     }
                 }
                 if (!tempFile.createNewFile()) {// 创建临时文件
-                    showResult("create " + file_path + file_name + file_num + " failed", activity);// 创建文件失败
+                    showResult("create " + file_name + file_num + " failed", activity);// 创建文件失败
                     return -1;
                 } else {
-                    showResult("create " + file_path + file_name + file_num + " succeed", activity);// 创建文件成功
+                    showResult("create " + file_name + file_num + " succeed", activity);// 创建文件成功
                     return 0;
                 }
             } else {// TODO 在指定位置创建文件
-                ;
+                File file = new File(file_path);
+                String dir_path = file.getParent();
+                Log.i("fuck parent", dir_path);
+                File dir = new File(file.getParent());
             }
 
         } catch (Exception ex) {
