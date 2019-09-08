@@ -62,8 +62,75 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{permission}, 1);// 获取`写`权限
         }
 
+        createBtn();// 为所有按钮绑定点击事件
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
+        if (resultCode == Activity.RESULT_OK) {
+            String path = null;
+            if (requestCode == 1) {// `打开`按钮
+                Uri uri = data.getData();
+
+                // 转换文件路径为绝对路径
+                GetPath tempPath = new GetPath();
+                path = tempPath.getPathFromUri(this, uri);// 将uri转成路径
+
+                // 读取文件内容并显示
+                ReadFile tempRead = new ReadFile();
+                EditText text = findViewById(R.id.editText1);
+                int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
+
+                // 读取文件路径 TODO
+                loadFile(path, result);
+            } else {// TODO
+                ;
+            }
+        }
+    }
+
+    @Override
+    protected void onPause() {// TODO 用于临时保存数据
+        super.onPause();
+
+        if (current_file[0] == null) {// TODO 没有打开任何文件
+            return;// TODO
+        } else {// TODO 检查当前文件是否为临时文件
+            File file = new File(current_file[0]);
+            String dir_path = file.getParent();// TODO 不包含"/."
+            if (!Pattern.matches(dir_path + "(/.)*(/)*", MainActivity.this.getExternalFilesDir(".").getAbsolutePath())) {// 前者包含"/.
+                Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());
+                new AssertionError(current_file[0]);// 所有打开的文件都对应一个临时文件,不可能出现错误
+            }
+
+            // 将EditText的内容写入当前文件
+            EditText text = findViewById(R.id.editText1);
+            WriteFile tempWrite = new WriteFile();
+            String file_name = current_file[0];// TODO 当前文件
+            int result = tempWrite.writeFile(text.getText().toString(), file_name);
+            if (result == 0) {// 保存成功
+                Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
+            } else {// 保存失败
+                Toast.makeText(MainActivity.this, file.getName() + " error", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
+    private void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
+        if (result == 0) {// 文件打开成功
+            file_cur_num = 0;// TODO 默认-1
+            current_file[file_cur_num] = file_name.replace("/.", "");// 保存路径到当前文件编号,删除多余"/."
+            Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
+        } else {// 文件打开失败
+            Toast.makeText(this, file_name + " open failed", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void createBtn() {// 为所有按钮绑定点击事件
         // 调用系统文件管理
-        final Button openBtn = findViewById(R.id.openButton);// `打开`按钮
+        Button openBtn = findViewById(R.id.openButton);// `打开`按钮
         openBtn.setOnClickListener(new View.OnClickListener() {// 点击`打开`按钮
             @Override
             public void onClick(View view) {
@@ -123,68 +190,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
-        if (resultCode == Activity.RESULT_OK) {
-            String path = null;
-            if (requestCode == 1) {// `打开`按钮
-                Uri uri = data.getData();
-
-                // 转换文件路径为绝对路径
-                GetPath tempPath = new GetPath();
-                path = tempPath.getPathFromUri(this, uri);// 将uri转成路径
-
-                // 读取文件内容并显示
-                ReadFile tempRead = new ReadFile();
-                EditText text = findViewById(R.id.editText1);
-                int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
-
-                // 读取文件路径 TODO
-                loadFile(path, result);
-            } else {// TODO
-                ;
-            }
-        }
-    }
-
-    @Override
-    protected void onPause() {// TODO 用于临时保存数据
-        super.onPause();
-
-        if (current_file[0] == null) {// TODO 没有打开任何文件
-            return;// TODO
-        } else {// TODO 检查当前文件是否为临时文件
-            File file = new File(current_file[0]);
-            String dir_path = file.getParent();// TODO 不包含"/."
-            if (!Pattern.matches(dir_path + "(/.)*(/)*", MainActivity.this.getExternalFilesDir(".").getAbsolutePath())) {// 前者包含"/.
-                Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());
-                new AssertionError(current_file[0]);// 所有打开的文件都对应一个临时文件,不可能出现错误
-            }
-
-            // 将EditText的内容写入当前文件
-            EditText text = findViewById(R.id.editText1);
-            WriteFile tempWrite = new WriteFile();
-            String file_name = current_file[0];// TODO 当前文件
-            int result = tempWrite.writeFile(text.getText().toString(), file_name);
-            if (result == 0) {// 保存成功
-                Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
-            } else {// 保存失败
-                Toast.makeText(MainActivity.this, file.getName() + " error", Toast.LENGTH_LONG).show();
-            }
-
-        }
-    }
-
-    public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
-        if (result == 0) {// 文件打开成功
-            file_cur_num = 0;// TODO 默认-1
-            current_file[file_cur_num] = file_name.replace("/.", "");// 保存路径到当前文件编号,删除多余"/."
-            Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
-        } else {// 文件打开失败
-            Toast.makeText(this, file_name + " open failed", Toast.LENGTH_LONG).show();
-        }
     }
 }
