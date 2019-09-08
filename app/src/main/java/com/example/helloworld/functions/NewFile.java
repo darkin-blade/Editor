@@ -53,9 +53,34 @@ public class NewFile extends FileManager {// 继承用于打印信息
                 }
             } else {// TODO 在指定位置创建文件
                 File file = new File(file_path);
+
+                // 创建父目录
                 String dir_path = file.getParent();
                 Log.i("fuck parent", dir_path);
                 File dir = new File(file.getParent());
+                if (!dir.exists()) {// 目录不存在
+                    if (!dir.mkdirs()) {//  创建多重目录
+                        showResult("mkdir " + dir_path + " failed", activity);
+                        return -1;// 创建目录失败,直接返回
+                    } else {// 创建新的目录
+                        Log.i("newFile", "mkdir succeed");
+                    }
+                } else {// 目录已存在
+                    Log.i("newFile", "dir already exists");
+                }
+
+                if (file.exists()) {// 文件已存在,直接报错
+                    showResult(file_path + " already exists", activity);
+                    return -1;// TODO
+                } else {// 创建新的文件
+                    if (!file.createNewFile()) {
+                        showResult("create " + file_path + " failed", activity);// 创建文件失败
+                        return -1;
+                    } else {
+                        showResult("create " + file_path + " succeed", activity);// 创建文件成功
+                        return 0;
+                    }
+                }
             }
 
         } catch (Exception ex) {
