@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -206,11 +207,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {// TODO
 
-                MyDialog dialog = new MyDialog(MainActivity.this, R.style.save_style);
-                dialog.show();// TODO 点击事件,打开路径
-
-                if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
-                }
+//                MyDialog dialog = new MyDialog(MainActivity.this, R.style.save_style);
+//                dialog.show();// TODO 点击事件,打开路径
+//
+//                if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
+//                }
+                SharedPreferences preferences = getSharedPreferences("fuck", MODE_PRIVATE);// 只能被自己的应用程序访问
+                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
+                Log.i("fuck data", preferences.getString("fuck", "mother"));// 第二个参数:若找不到key,则返回第二个参数
             }
         });
     }
