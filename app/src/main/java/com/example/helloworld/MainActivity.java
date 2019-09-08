@@ -154,8 +154,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
 
-        Log.i("fuck", "".length() + "");
-        String temp_name = MainActivity.this.getExternalFilesDir(".") + "/temp\\d{1,2}$";// 加上app目录前缀
+        String temp_name = MainActivity.this.getExternalFilesDir(".") + "/(./)*temp\\d{1,2}$";// 加上app目录前缀
 
         if (current_file[0] == null) {// TODO 没有打开任何文件
             return;// TODO
@@ -173,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        Log.i("fuck match", Pattern.matches(temp_name, current_file[0]) + "");
+        Log.i("fuck tempname", temp_name);
+        Log.i("fuck " + current_file[0], Pattern.matches(temp_name, current_file[0]) + "");
     }
 
     public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
