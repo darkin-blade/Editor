@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -153,11 +154,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
 
-        Log.i("fuck match", Pattern.matches("^temp\\d{1,2}$", current_file[0]) + "");
+        Log.i("fuck", "".length() + "");
+        String temp_name = MainActivity.this.getExternalFilesDir(".") + "/temp\\d{1,2}$";// 加上app目录前缀
 
         if (current_file[0] == null) {// TODO 没有打开任何文件
-            ;
-        } else if (Pattern.matches("^temp\\d{1,2}$", current_file[0])) {// TODO 检查当前文件是否为临时文件
+            return;// TODO
+        } else if (Pattern.matches(temp_name, current_file[0])) {// TODO 检查当前文件是否为临时文件
 
             // 将EditText的内容写入当前文件
             EditText text = findViewById(R.id.editText1);
@@ -171,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+        Log.i("fuck match", Pattern.matches(temp_name, current_file[0]) + "");
     }
 
     public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
