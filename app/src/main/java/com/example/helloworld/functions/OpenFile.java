@@ -15,9 +15,9 @@ public class OpenFile {
 
         // 读取打开的文件内容
         ReadFile tempRead = new ReadFile();
-        int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
+        int result = tempRead.readFile(path, text);// 如果文件不存在则会返回-1
 
-        // 读取文件路径
+        // 加载文件路径
         if (result != -1) {// 打开文件成功
             return path;
         } else {// 打开文件失败

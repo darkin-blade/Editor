@@ -39,12 +39,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String action = intent.getAction();// 判断本软件启动的方式
         if (action.equals("android.intent.action.VIEW")) {// 由其他软件打开本软件
-            OpenFile tempOpen = new OpenFile();
-            EditText text = findViewById(R.id.editText1);// 获取编辑区域
-            String result = tempOpen.openFile(intent, MainActivity.this, text);// 打开并加载文件
-            if (result != null) {// 打开成功
-                ;// TODO
-            }
+            Uri uri = intent.getData();
+
+            // 获取打开的文件地址
+            GetPath tempPath = new GetPath();
+            String path = tempPath.getPathFromUri(MainActivity.this, uri);// 将uri转成路径
+
+            // 读取打开的文件内容
+            ReadFile tempRead = new ReadFile();
+            EditText text = findViewById(R.id.editText1);
+            int result = tempRead.readFile(path, text);// 如果文件不存在则会返回-1
         }
 
         // 首次检察权限
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // 转换文件路径为绝对路径
                 GetPath tempPath = new GetPath();
-                path = tempPath.getPathFromUri(this, uri);
+                path = tempPath.getPathFromUri(this, uri);// 将uri转成路径
 
                 // 读取文件内容并显示
                 ReadFile tempRead = new ReadFile();
