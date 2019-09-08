@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     String[] current_temp = new String[5];// 所有打开文件对应的临时文件
     int file_total_num = 0;// TODO 当前打开的文件总数
     int file_cur_num = -1;// TODO 当前窗口的文件编号
-    int buttonMove = 240;// 所有button一起移动的水平参数
+    int buttonMove = 280;// 所有button一起移动的水平参数
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,13 +165,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
                 // 隐藏/显示所有按钮
-                ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.buttons), "translationX", buttonMove + 240);
+                ObjectAnimator animator = ObjectAnimator.ofFloat(findViewById(R.id.buttons), "translationX", buttonMove + Math.abs(buttonMove));
                 animator.setDuration(250);
                 animator.start();
                 buttonMove = -buttonMove;
                 // 修改`隐藏/显示`按钮样式
                 Button temp = findViewById(R.id.ctrlButton);
-                if (buttonMove == -240) {// 此时为`显示`按钮
+                if (buttonMove == -Math.abs(buttonMove)) {// 此时为`显示`按钮
                     temp.setBackgroundResource(R.drawable.button_show);
                 } else {// `隐藏`按钮
                     temp.setBackgroundResource(R.drawable.button_hide);
