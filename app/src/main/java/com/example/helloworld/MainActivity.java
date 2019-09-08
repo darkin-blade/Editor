@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -196,7 +197,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
-                    ;
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("请输入")
+                            .setIcon(android.R.drawable.ic_dialog_info)
+                            .setView(new EditText(MainActivity.this))
+                            .setPositiveButton("确定", null)
+                            .setNegativeButton("取消", null)
+                            .show();
                 }
             }
         });

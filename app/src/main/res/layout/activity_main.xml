@@ -43,8 +43,8 @@
 
     <LinearLayout
         android:id="@+id/buttons"
-        android:layout_width="416dp"
-        android:layout_height="80dp"
+        android:layout_width="364dp"
+        android:layout_height="68dp"
         android:orientation="horizontal"
         android:layout_marginBottom="0dp"
         android:layout_marginRight="0dp"
@@ -56,8 +56,8 @@
         <Button
             android:id="@+id/ctrlButton"
 
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginLeft="48dp"
 
             android:background="@drawable/button_hide"
@@ -67,49 +67,53 @@
         <Button
             android:id="@+id/closeButton"
 
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="12dp"
 
             android:background="@drawable/oval_blue3"
             android:text="close"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="10dp"/>
 
         <!-- `新建`按钮 -->
         <Button
             android:id="@+id/newButton"
 
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="12dp"
 
             android:background="@drawable/oval_blue2"
             android:text="new"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="10dp"/>
 
         <!-- `保存`按钮 -->
         <Button
             android:id="@+id/saveButton"
 
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="12dp"
 
             android:background="@drawable/oval_blue1"
             android:text="save"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="10dp"/>
 
         <!-- `打开`按钮 -->
         <Button
             android:id="@+id/openButton"
 
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="12dp"
 
             android:background="@drawable/oval_blue"
             android:text="open"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="10dp"/>
 
     </LinearLayout>
 
