@@ -11,9 +11,11 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.helloworld.functions.GetPath;
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // 读取文件路径 TODO
                 loadFile(path, result);
+
             } else if (requestCode == 2) {
 
 
@@ -185,7 +188,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 新建文件
                 NewFile tempNew = new NewFile();
-                int temp_num = tempNew.newFile("", MainActivity.this);// 获取临时文件编号
+                int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
+
+                // TODO 在顶部栏创建tab
+                LinearLayout tab = findViewById(R.id.file_tab);
+                Button btn = (Button) getLayoutInflater().inflate(R.style.tab_active, null);
+                tab.addView(btn);
             }
         });
 

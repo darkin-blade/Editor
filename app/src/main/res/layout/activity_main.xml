@@ -36,18 +36,6 @@
                 android:layout_height="match_parent"
                 android:id="@+id/file_tab"
                 android:orientation="horizontal">
-                <Button
-                    style="@style/tab_active"
-                    android:text="file">
-                </Button>
-                <Button
-                    style="@style/tab_active"
-                    android:text="file">
-                </Button>
-                <Button
-                    style="@style/tab_active"
-                    android:text="file">
-                </Button>
             </LinearLayout>
         </HorizontalScrollView>
 
