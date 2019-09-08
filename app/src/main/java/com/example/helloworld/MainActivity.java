@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button saveBtn = findViewById(R.id.saveButton);// `保存`按钮
+        final Button saveBtn = findViewById(R.id.saveButton);// `保存`按钮
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -200,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
 
                 View saveFile = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_save, null);
 
+                Dialog dialog = new Dialog(MainActivity.this, R.)
                 AlertDialog.Builder saveBuilder = new AlertDialog.Builder(MainActivity.this);
-                saveBuilder.setTitle("Input file name:");
                 saveBuilder.setView(saveFile);
                 saveBuilder.show();
 

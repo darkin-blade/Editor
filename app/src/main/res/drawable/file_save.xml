@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 用于保存文件时输入文件名 -->
 <layer-list
-    xmlns:android="http://schemas.android.com/apk/res/android"    >
-    <item
-        android:left="20dp"
-        android:right="20dp">
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
 
             <shape android:shape="rectangle">
-                <solid android:color="@color/grey"></solid>
+                <solid android:color="@color/blue3"></solid>
                 <size android:width="200dp"></size>
                 <size android:height="50dp"></size>
                 <corners
