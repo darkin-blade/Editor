@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="tab_active">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">100dp</item>
+        <item name="android:background">@drawable/tab_active</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
+</resources>
