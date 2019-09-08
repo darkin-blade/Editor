@@ -20,6 +20,9 @@ import com.example.helloworld.functions.NewFile;
 import com.example.helloworld.functions.ReadFile;
 import com.example.helloworld.functions.WriteFile;
 
+import java.io.File;
+import java.util.regex.Pattern;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // 新建文件
                 NewFile tempNew = new NewFile();
-                tempNew.newFile("", MainActivity.this);
+                int temp_num = tempNew.newFile("", MainActivity.this);// 获取临时文件编号
             }
         });
 
@@ -103,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (current_file[0] == null) {// 没有打开任何文件
+                if (current_file[0] == null) {// TODO 没有打开任何文件
                     Toast.makeText(MainActivity.this, "fuck", Toast.LENGTH_SHORT).show();
                 } else {
                     // 将EditText的内容写入当前文件
@@ -149,7 +152,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
-        Log.i("fuck", "pause");
+
+        Log.i("fuck match", Pattern.matches("^temp\\d{1,2}$", current_file[0]) + "");
+
+        if (current_file[0] == null) {// TODO 没有打开任何文件
+            ;
+        } else if (Pattern.matches("^temp\\d{1,2}$", current_file[0])) {// TODO 检查当前文件是否为临时文件
+
+            // 将EditText的内容写入当前文件
+            EditText text = findViewById(R.id.editText1);
+            WriteFile tempWrite = new WriteFile();
+            String file_name = current_file[0];// TODO 当前文件
+            int result = tempWrite.writeFile(text.getText().toString(), file_name);
+            if (result == 0) {// 保存成功
+                ;// TODO
+            } else {// 保存失败
+                Toast.makeText(MainActivity.this, file_name + " error", Toast.LENGTH_LONG).show();
+            }
+
+        }
     }
 
     public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口

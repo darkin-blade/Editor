@@ -35,7 +35,7 @@ public class NewFile extends FileManager {// 继承用于打印信息
                 while (tempFile.exists()) {// 文件存在
                     file_num ++;// 一直找到一个不存在的文件名
                     tempFile = new File(file_name + file_num);
-                    if (file_num > 100) {// 临时文件数量限定,防止死循环
+                    if (file_num >= 100) {// 临时文件数量限定,防止死循环
                         return -1;// TODO 不允许创建
                     }
                 }
@@ -44,7 +44,7 @@ public class NewFile extends FileManager {// 继承用于打印信息
                     return -1;
                 } else {
                     showResult("create " + file_name + file_num + " succeed", activity);// 创建文件成功
-                    return 0;
+                    return file_num;// TODO 返回临时文件的编号
                 }
             } else {// TODO 在指定位置创建文件
                 File file = new File(file_path);
