@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {// TODO
 
                 MyDialog dialog = new MyDialog(MainActivity.this, R.style.save_style);
-                dialog.show();
+                dialog.show();// TODO 点击事件,打开路径
 
                 if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
                 }

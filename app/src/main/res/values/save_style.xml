@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="save_style" parent="@android:style/Theme.Dialog">
-        <!--背景颜色和透明程度-->
+        <!-- 背景颜色和透明程度 -->
         <item name="android:windowBackground">@color/transparent</item>
-        <!--是否去除标题-->
+        <!-- 是否去除标题 -->
         <item name="android:windowNoTitle">true</item>
-        <!--是否去除边框-->
+        <!-- 是否去除边框 -->
         <item name="android:windowFrame">@null</item>
         <!--是否浮现在activity之上-->
         <item name="android:windowIsFloating">true</item>
-        <!--是否模糊-->
+        <!-- 是否模糊 -->
         <item name="android:backgroundDimEnabled">false</item>
+        <!-- 阴影颜色 -->
         <item name="android:shadowColor">@color/grey_dark</item>
     </style>
 </resources>
