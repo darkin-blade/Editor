@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.helloworld.functions.GetPath;
@@ -195,15 +196,16 @@ public class MainActivity extends AppCompatActivity {
         Button closeBtn = findViewById(R.id.closeButton);// `关闭`按钮
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view) {// TODO
+
+                View saveFile = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_save, null);
+
+                AlertDialog.Builder saveBuilder = new AlertDialog.Builder(MainActivity.this);
+                saveBuilder.setTitle("Input file name:");
+                saveBuilder.setView(saveFile);
+                saveBuilder.show();
+
                 if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("请输入")
-                            .setIcon(android.R.drawable.ic_dialog_info)
-                            .setView(new EditText(MainActivity.this))
-                            .setPositiveButton("确定", null)
-                            .setNegativeButton("取消", null)
-                            .show();
                 }
             }
         });
