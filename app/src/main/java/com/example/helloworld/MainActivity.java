@@ -170,9 +170,9 @@ public class MainActivity extends AppCompatActivity {
             String file_name = current_file[0];// TODO 当前文件
             int result = tempWrite.writeFile(text.getText().toString(), file_name);
             if (result == 0) {// 保存成功
-                ;// TODO
+                Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
             } else {// 保存失败
-                Toast.makeText(MainActivity.this, file_name + " error", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, file.getName() + " error", Toast.LENGTH_LONG).show();
             }
 
         }
