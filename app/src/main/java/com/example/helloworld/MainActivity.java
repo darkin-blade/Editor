@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -199,12 +200,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {// TODO
 
-                View saveFile = (LinearLayout) getLayoutInflater().inflate(R.layout.activity_save, null);
+                View saveFile = getLayoutInflater().inflate(R.layout.activity_save, null);// 自定义`输入文件名`窗口布局
 
-                Dialog dialog = new Dialog(MainActivity.this, R.)
-                AlertDialog.Builder saveBuilder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder saveBuilder = new AlertDialog.Builder(MainActivity.this);// 弹出`输入文件名`窗口
                 saveBuilder.setView(saveFile);
-                saveBuilder.show();
+                saveBuilder.create().show();
 
                 if (current_file[0] != null) {// TODO 打开的临时文件对应真实文件的备份,需要保存
                 }
