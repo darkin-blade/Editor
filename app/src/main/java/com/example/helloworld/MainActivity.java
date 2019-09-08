@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +24,8 @@ import com.example.helloworld.functions.WriteFile;
 public class MainActivity extends AppCompatActivity {
 
     String[] current_file = new String[5];// 最多同时打开5个文件
-    int file_total_num = 0;// 当前打开的文件总数
-    int file_cur_num = 0;// 当前窗口的文件编号
+    int file_total_num = 0;// TODO 当前打开的文件总数
+    int file_cur_num = -1;// TODO 当前窗口的文件编号
     int buttonMove = 240;// 所有button一起移动的水平参数
 
     @Override
@@ -145,9 +146,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {// TODO 用于临时保存数据
+        super.onPause();
+        Log.i("fuck", "pause");
+    }
+
     public void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
         if (result == 0) {// 文件打开成功
-            current_file[0] = file_name;// 保存路径
+            file_cur_num = 0;// TODO 默认-1
+            current_file[file_cur_num] = file_name;// 保存路径到当前文件编号
             Toast.makeText(this, file_name + " open succeed", Toast.LENGTH_LONG).show();
         } else {// 文件打开失败
             Toast.makeText(this, file_name + " open failed", Toast.LENGTH_LONG).show();
