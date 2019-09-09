@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/tab_width"
     android:layout_height="@dimen/tab_height">
-    <solid android:color="@color/blue" />
+    <solid android:color="@color/blue1" />
     <corners
         android:topLeftRadius="10dp"
         android:topRightRadius="10dp"/>

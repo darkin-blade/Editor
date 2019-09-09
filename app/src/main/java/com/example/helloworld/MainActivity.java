@@ -196,16 +196,32 @@ public class MainActivity extends AppCompatActivity {
 
                 // TODO 在顶部栏创建tab
                 LinearLayout tab = findViewById(R.id.file_tab);
-                Button btn = new Button(MainActivity.this);
-                btn.setBackgroundResource(R.drawable.tab_active);
-                btn.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
-                btn.setText("temp" + temp_num);
-                btn.setTextSize(12);
+                Button btnNow = new Button(MainActivity.this);
+                btnNow.setBackgroundResource(R.drawable.tab_active);
+                btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
+                btnNow.setText("temp" + temp_num);
+                btnNow.setTextSize(12);
+
+                // TODO 将其他button置为不活跃
+                if (file_cur_num >= 0) {
+                    Button btnLast = findViewById(button_id + file_cur_num);// TODO 找出当前文件对应的tab
+                    btnLast.setBackgroundResource(R.drawable.tab_notactive);// TODO
+                }
 
                 // TODO 为button标号
-                btn.setId(button_id + file_total_num);// TODO
+                btnNow.setId(button_id + file_total_num);// TODO
+                file_cur_num = file_total_num;// 切换当前窗口为`新建文件`的对应窗口
                 file_total_num ++;// 文件数增加
-                tab.addView(btn);
+
+                // TODO 为button添加切换监听
+                btnNow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.i("fuck view", view.getId() - button_id + "");
+                        changeTab(view.getId());// 传递被点击按钮的id
+                    }
+                });
+                tab.addView(btnNow);
             }
         });
 
@@ -251,5 +267,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void changeTab(int click_id) {// TODO 切换窗口
+        Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
+        btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
+
+        Button btnNow = findViewById(click_id);// 找出被点击的tab
+        btnNow.setBackgroundResource(R.drawable.tab_active);// 置为活跃
+        file_cur_num = click_id - button_id;// TODO 切换当前文件
     }
 }
