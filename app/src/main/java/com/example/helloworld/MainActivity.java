@@ -255,10 +255,6 @@ public class MainActivity extends AppCompatActivity {
                 MyDialog dialog = new MyDialog(MainActivity.this, R.style.save_style);
                 dialog.show();// TODO 点击事件,打开路径
 
-                SharedPreferences preferences = getSharedPreferences("file_name", MODE_PRIVATE);// 只能被自己的应用程序访问
-                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
-                Log.i("fuck data", preferences.getString("fuck", "nothing"));// 第二个参数:若找不到key,则返回第二个参数
-
                 // 删除标签栏
                 Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
                 if (file_cur_num >= 0 && false) {// 当前是否打开了文件

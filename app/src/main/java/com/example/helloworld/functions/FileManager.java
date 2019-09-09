@@ -13,7 +13,9 @@ public class FileManager {
         return;
     }
 
-    public void test(int s) {
-        s = s + 1;
+    public void Panic() {
+        if (true) {
+            new AssertionError("fuck you");
+        }
     }
 }
