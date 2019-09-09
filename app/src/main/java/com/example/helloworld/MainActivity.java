@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     int file_total_num = 0;// TODO 当前打开的文件总数
     int file_cur_num = -1;// TODO 当前窗口的文件编号
     int buttonMove = 280;// 所有button一起移动的水平参数
+    int button_id = 1234321;// button的起始id
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,9 +201,11 @@ public class MainActivity extends AppCompatActivity {
                 btn.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
                 btn.setText("temp" + temp_num);
                 btn.setTextSize(12);
-                tab.addView(btn);
 
                 // TODO 为button标号
+                btn.setId(button_id + file_total_num);// TODO
+                file_total_num ++;// 文件数增加
+                tab.addView(btn);
             }
         });
 
@@ -238,6 +241,14 @@ public class MainActivity extends AppCompatActivity {
 //                SharedPreferences preferences = getSharedPreferences("file_name", MODE_PRIVATE);// 只能被自己的应用程序访问
 //                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
 //                Log.i("fuck data", preferences.getString("fuck", "nothing"));// 第二个参数:若找不到key,则返回第二个参数
+
+                // 删除标签栏
+                if (file_total_num > 0) {
+                    file_total_num--;
+                    Button btn = findViewById(button_id + file_total_num);// TODO 获取当前要关闭的页面tab
+                    LinearLayout tab = findViewById(R.id.file_tab);
+                    tab.removeView(btn);
+                }
             }
         });
     }
