@@ -50,7 +50,7 @@ public class NewFile extends FileManager {// 继承用于打印信息
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        showResult("error", activity);
+        showResult("error " + file_path, activity);
         return -1;
     }
 

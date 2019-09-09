@@ -246,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
         // 从当前窗口获取临时文件的路径
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
         String tempFile = preferences.getString(file_cur_num + "", "");// TODO 文件不存在
+        if (tempFile == null) {// TODO 没有打开文件
+            return;
+        }
         Log.i("fuck cur", tempFile + ">");
 
         // 将EditText的内容写入临时文件
@@ -256,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
         if (result == 0) {// TODO 保存成功
             Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
         } else {// 保存失败
-            Toast.makeText(MainActivity.this, file.getName() + " error", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, file.getName() + " temp save error", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -278,8 +281,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected String newTempFile() {// 新建临时文件并显示到最后一个窗口
-
-        // 新建文件
+        // 新建临时文件
         NewFile tempNew = new NewFile();
         int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
 
