@@ -57,8 +57,8 @@
         <item name="android:textColor">@color/grey_dark</item>
     </style>
 
+    <dimen name="title_height">55dp</dimen>
     <dimen name="tab_height">35dp</dimen>
-    <dimen name="tab_higher">45dp</dimen>
     <dimen name="tab_width">110dp</dimen>
 
 </resources>
