@@ -39,12 +39,15 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/no_button"
                 style="@style/delete_button"/>
 
             <Button
+                android:id="@+id/cancel_button"
                 style="@style/cancel_button"/>
 
             <Button
+                android:id="@+id/yes_button"
                 style="@style/confirm_button"/>
 
         </LinearLayout>

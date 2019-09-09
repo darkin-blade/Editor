@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     int buttonMove = 280;// 所有button一起移动的水平参数
     int button_id = 1234321;// button的起始id
 
+    public MyDialog dialog;
+    public int dialog_result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -192,46 +195,65 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-
-                MyDialog dialog = new MyDialog(MainActivity.this, R.style.save_style);
-                dialog.show();// TODO 点击事件,打开路径
-
-                // 删除标签栏
-                Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
-                if (file_cur_num >= 0 && false) {// 当前是否打开了文件
-                    // 关闭当前页面
-                    Button btn = findViewById(button_id + file_cur_num);// TODO 获取当前要关闭的页面tab
-                    LinearLayout tab = findViewById(R.id.file_tab);
-                    tab.removeView(btn);
-
-                    // 切换至邻近页面
-                    // TODO 修改数据库
-                    if (file_cur_num == file_total_num - 1) {// 关闭的是最后一个文件
-                        // 打开前一个文件
-                        if (file_total_num > 1) {// 还能够打开另一个文件
-                            Button btnNow = findViewById(button_id + file_cur_num - 1);
-                            btnNow.callOnClick();
-                        } else {
-                            file_cur_num --;// TODO
-                        }
-                    } else {// 将文件从后往前移动,补空位
-                        Button btnNow = null;
-                        for (int i = file_cur_num + 1; i < file_total_num ; i ++) {
-                            btnNow = findViewById(button_id + i);
-                            btnNow.setId(button_id + i - 1);// 将id - 1
-                            Log.i("fucking", "i: " + i + " find: " + (findViewById(button_id + i - 1) != null));
-                        }
-                        btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
-                        btnNow.callOnClick();
-                    }
-                    file_total_num --;// TODO 总文件数减少
-
-                } else {
-                    Log.i("fuck cur_total", file_cur_num + "===" + file_total_num);
-                }
-                Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
+                closeCurFile();// 关闭当前窗口的文件
             }
         });
+    }
+
+    protected void closeCurFile() {
+        // 获取文件名和临时文件名
+        SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
+        String file = preferencesFile.getString(tempFile, null);
+        if (file == null || tempFile == null) {// TODO
+            Log.i("fuck close", "failed");
+            // return;// TODO
+        }
+
+        // 显示`是否保存`提示框
+        dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
+
+
+        // TODO TODO TODO
+        dialog.show();// TODO 获取点击结果
+
+        Log.i("fuck", "return " + dialog_result);
+//
+//        // 删除标签栏
+//        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
+//        if (file_cur_num >= 0 && false) {// 当前是否打开了文件
+//            // 关闭当前页面
+//            Button btn = findViewById(button_id + file_cur_num);// TODO 获取当前要关闭的页面tab
+//            LinearLayout tab = findViewById(R.id.file_tab);
+//            tab.removeView(btn);
+//
+//            // 切换至邻近页面
+//            // TODO 修改数据库
+//            if (file_cur_num == file_total_num - 1) {// 关闭的是最后一个文件
+//                // 打开前一个文件
+//                if (file_total_num > 1) {// 还能够打开另一个文件
+//                    Button btnNow = findViewById(button_id + file_cur_num - 1);
+//                    btnNow.callOnClick();
+//                } else {
+//                    file_cur_num --;// TODO
+//                }
+//            } else {// 将文件从后往前移动,补空位
+//                Button btnNow = null;
+//                for (int i = file_cur_num + 1; i < file_total_num ; i ++) {
+//                    btnNow = findViewById(button_id + i);
+//                    btnNow.setId(button_id + i - 1);// 将id - 1
+//                    Log.i("fucking", "i: " + i + " find: " + (findViewById(button_id + i - 1) != null));
+//                }
+//                btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
+//                btnNow.callOnClick();
+//            }
+//            file_total_num --;// TODO 总文件数减少
+//
+//        } else {
+//            Log.i("fuck cur_total", file_cur_num + "===" + file_total_num);
+//        }
+//        Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
     }
 
     protected void tempSave() {// 将输入框内容保存到临时文件中
@@ -241,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
         if (tempFile == null) {// TODO 没有打开文件
             return;
         }
-        Log.i("fuck cur", tempFile + ">");
+        Log.i("fuck cur", tempFile + " temp saved");// TODO
 
         // 将EditText的内容写入临时文件
         File file = new File(tempFile);
@@ -257,10 +279,10 @@ public class MainActivity extends AppCompatActivity {
 
     protected void openNewFile(String file) {// 打开非临时文件,并创建临时文件副本
         // 将打开的文件与临时文件绑定,已经获取打开的文件的绝对路径
-        String tempfile = newTempFile();// 新建临时文件并打开,获取临时文件名
+        String tempFile = newTempFile();// 新建临时文件并打开,获取临时文件名
         SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(tempfile, file);// 将临时文件与打开的文件绑定
+        editor.putString(tempFile, file);// 将临时文件与打开的文件绑定
         editor.commit();
 
         // 将文件内容读取到输入框
