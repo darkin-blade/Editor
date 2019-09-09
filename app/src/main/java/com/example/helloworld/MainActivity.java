@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
     protected void tempSave() {// 将输入框内容保存到临时文件中
         // 从当前窗口获取临时文件的路径
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
-        String tempFile = preferences.getString(file_cur_num + "", "");// TODO 文件不存在
+        String tempFile = preferences.getString(file_cur_num + "", null);// 文件不存在则返回null
         if (tempFile == null) {// TODO 没有打开文件
             return;
         }
