@@ -191,16 +191,26 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
+                // 加载一个新的临时文件到最后一个窗口
                 // 新建文件
                 NewFile tempNew = new NewFile();
                 int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
 
-                // TODO 在顶部栏创建tab
+                // 将临时文件绑定到窗口号
+                String tempName = getExternalFilesDir(".").getAbsolutePath() + "/temp" + temp_num;// TODO 新临时文件的文件名
+                SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 只能被自己的应用程序访问,打开窗口映射
+                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
+                editor.putString(file_total_num + "", tempName);// TODO 将临时文件绑定到最大窗口号
+                editor.commit();// 保存
+                Log.i("fuck new temp", tempName + " " + file_total_num);// TODO
+                Log.i("fuck data", preferences.getString("" + file_total_num, "nothing fuck"));// 第二个参数:若找不到key,则返回第二个参数
+
+                // 在顶部栏创建tab
                 LinearLayout tab = findViewById(R.id.file_tab);
                 Button btnNow = new Button(MainActivity.this);
                 btnNow.setBackgroundResource(R.drawable.tab_active);
                 btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
-                btnNow.setText("temp" + temp_num);
+                btnNow.setText("temp" + temp_num);// 即newFile返回的文件编号
                 btnNow.setPadding(0, 0, 0, 0);
 
                 // TODO 将其他button置为不活跃
@@ -222,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                         changeTab(view.getId());// 传递被点击按钮的id
                     }
                 });
-                tab.addView(btnNow);
+                tab.addView(btnNow);// 添加按钮
             }
         });
 
