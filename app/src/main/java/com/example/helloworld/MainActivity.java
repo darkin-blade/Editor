@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnNew = findViewById(R.id.newButton);// `新建`按钮
+        final Button btnNew = findViewById(R.id.newButton);// `新建`按钮
         btnNew.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -259,19 +259,48 @@ public class MainActivity extends AppCompatActivity {
 //                Log.i("fuck data", preferences.getString("fuck", "nothing"));// 第二个参数:若找不到key,则返回第二个参数
 
                 // 删除标签栏
-                if (file_total_num > 0) {
-                    file_total_num--;
-                    Button btn = findViewById(button_id + file_total_num);// TODO 获取当前要关闭的页面tab
+                Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
+                if (file_cur_num >= 0) {// 当前是否打开了文件
+                    // 关闭当前页面
+                    Button btn = findViewById(button_id + file_cur_num);// TODO 获取当前要关闭的页面tab
                     LinearLayout tab = findViewById(R.id.file_tab);
                     tab.removeView(btn);
+
+                    // 切换至邻近页面
+                    // TODO 修改数据库
+                    if (file_cur_num == file_total_num - 1) {// 关闭的是最后一个文件
+                        // 打开前一个文件
+                        if (file_total_num > 1) {// 还能够打开另一个文件
+                            Button btnNow = findViewById(button_id + file_cur_num - 1);
+                            btnNow.callOnClick();
+                        } else {
+                            file_cur_num --;// TODO
+                        }
+                    } else {// 将文件从后往前移动,补空位
+                        Button btnNow = null;
+                        for (int i = file_cur_num + 1; i < file_total_num ; i ++) {
+                            btnNow = findViewById(button_id + i);
+                            btnNow.setId(button_id + i - 1);// 将id - 1
+                            Log.i("fucking", "i: " + i + " find: " + (findViewById(button_id + i - 1) != null));
+                        }
+                        btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
+                        btnNow.callOnClick();
+                    }
+                    file_total_num --;// TODO 总文件数减少
+
+                } else {
+                    Log.i("fuck cur_total", file_cur_num + "===" + file_total_num);
                 }
+                Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
             }
         });
     }
 
     public void changeTab(int click_id) {// TODO 切换窗口
         Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
-        btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
+        if (btnLast != null) {// TODO 关闭事件等
+            btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
+        }
 
         Button btnNow = findViewById(click_id);// 找出被点击的tab
         btnNow.setBackgroundResource(R.drawable.tab_active);// 置为活跃
