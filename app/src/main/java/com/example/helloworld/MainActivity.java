@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     String[] current_temp = new String[5];// 所有打开文件对应的临时文件
     int file_total_num = 0;// TODO 当前打开的文件总数
-    int file_cur_num = -1;// TODO 当前窗口的文件编号
+    int file_cur_num = -1;// TODO 当前窗口的文件编号,-1为空
     int buttonMove = 280;// 所有button一起移动的水平参数
     int button_id = 1234321;// button的起始id
 
