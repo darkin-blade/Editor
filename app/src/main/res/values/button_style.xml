@@ -18,31 +18,16 @@
         <item name="android:textSize">14dp</item>
     </style>
 
-    <style name="blue1">
-        <item name="android:layout_width">56dp</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
+    <style name="blue1" parent="blue">
         <item name="android:background">@drawable/oval_blue1</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14dp</item>
     </style>
 
-    <style name="blue2">
-        <item name="android:layout_width">56dp</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
+    <style name="blue2" parent="blue">
         <item name="android:background">@drawable/oval_blue2</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14dp</item>
     </style>
 
-    <style name="blue3">
-        <item name="android:layout_width">56dp</item>
-        <item name="android:layout_height">56dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
+    <style name="blue3" parent="blue">
         <item name="android:background">@drawable/oval_blue3</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">14dp</item>
     </style>
 
     <dimen name="tab_height">35dp</dimen>
