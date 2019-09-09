@@ -3,56 +3,50 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#11ffffff">
+
     <LinearLayout
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/save_drawable"
         android:layout_centerInParent="true"
-        android:layout_width="300dp"
-        android:layout_height="160dp"
-        android:background="@color/transparent">
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:elevation="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Please input file name:"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/save_input_drawable"
+            android:padding="2dp"
+            android:inputType="text"/>
 
         <LinearLayout
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/save_drawable"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:shadowRadius="5">
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:padding="6dp"
+            android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Please input file name:"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="10dp"/>
+            <Button
+                style="@style/delete_button"/>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/save_input_drawable"
-                android:padding="2dp"
-                android:inputType="text"/>
+            <Button
+                style="@style/cancel_button"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="6dp"
-                android:orientation="horizontal">
+            <Button
+                style="@style/confirm_button"/>
 
-                <Button
-                    style="@style/delete_button"/>
-
-                <Button
-                    style="@style/cancel_button"/>
-
-                <Button
-                    style="@style/confirm_button"/>
-
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

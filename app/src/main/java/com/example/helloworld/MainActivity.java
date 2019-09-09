@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -200,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
                 btnNow.setBackgroundResource(R.drawable.tab_active);
                 btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
                 btnNow.setText("temp" + temp_num);
-                btnNow.setTextSize(12);
+                btnNow.setPadding(0, 0, 0, 0);
 
                 // TODO 将其他button置为不活跃
                 if (file_cur_num >= 0) {
