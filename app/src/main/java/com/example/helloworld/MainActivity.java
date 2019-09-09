@@ -76,25 +76,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
         if (resultCode == Activity.RESULT_OK) {
-            String path = null;
             if (requestCode == 1) {// `打开`按钮
-                Uri uri = data.getData();
 
                 // 转换文件路径为绝对路径
+                Uri uri = data.getData();
                 GetPath tempPath = new GetPath();
-                path = tempPath.getPathFromUri(this, uri);// 将uri转成路径
+                String file = tempPath.getPathFromUri(this, uri);// 将uri转成路径
 
-                // 读取文件内容并显示
-                ReadFile tempRead = new ReadFile();
-                EditText text = findViewById(R.id.editText1);
-                int result = tempRead.readFile(path, text);// 如果文件不存在則会返回-1
-
-                // 读取文件路径 TODO
-                loadFile(path, result);
-
-            } else if (requestCode == 2) {
-
-
+                // TODO 打开文件
+                if (checkTemp(file)) {// 不能打开临时文件
+                    return;
+                }
+                File temp = new File(file);
+                if (temp.exists()) {// 如果文件存在,才打开文件
+                    openNewFile(file);// 将该文件与临时文件绑定并打开
+                }// TODO
             } else {// TODO
                 ;
             }
@@ -104,22 +100,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
-
-        String file_name = current_temp[0];// TODO 支持多个文件
-        Log.i("fuck cur", file_name + ">");
-
-        if (checkTemp(file_name)) {// 如果是临时文件
-            // 将EditText的内容写入当前文件
-            File file = new File(file_name);//
-            EditText text = findViewById(R.id.editText1);
-            WriteFile tempWrite = new WriteFile();
-            int result = tempWrite.writeFile(text.getText().toString(), file_name);
-            if (result == 0) {// 保存成功
-                Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
-            } else {// 保存失败
-                Toast.makeText(MainActivity.this, file.getName() + " error", Toast.LENGTH_LONG).show();
-            }
-        }
+        tempSave();
     }
 
     private void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
@@ -137,20 +118,19 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
+        // 先检查是否是app目录
         File file = new File(file_name);
         String dir_path = file.getParent();// TODO 不包含"/."
-
         Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());// TODO
         Log.i(file.getName(), Pattern.matches("^temp\\d{1,2}$", file.getName()) + "");// TODO
-
         if (!Pattern.matches(dir_path + "(/.)*(/)*", MainActivity.this.getExternalFilesDir(".").getAbsolutePath())) {// 如果不是app目录
             return false;
         }
 
+        // 再检查是否是临时文件名
         if (!Pattern.matches("^temp\\d{1,2}$", file.getName())) {// 不是临时文件名
             return false;
         }
-
         return true;
     }
 
@@ -191,48 +171,7 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-                // 加载一个新的临时文件到最后一个窗口
-                // 新建文件
-                NewFile tempNew = new NewFile();
-                int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
-
-                // 将临时文件绑定到窗口号
-                String tempName = getExternalFilesDir(".").getAbsolutePath() + "/temp" + temp_num;// TODO 新临时文件的文件名
-                SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 只能被自己的应用程序访问,打开窗口映射
-                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
-                editor.putString(file_total_num + "", tempName);// TODO 将临时文件绑定到最大窗口号
-                editor.commit();// 保存
-                Log.i("fuck new temp", tempName + " " + file_total_num);// TODO
-                Log.i("fuck data", preferences.getString("" + file_total_num, "nothing fuck"));// 第二个参数:若找不到key,则返回第二个参数
-
-                // 在顶部栏创建tab
-                LinearLayout tab = findViewById(R.id.file_tab);
-                Button btnNow = new Button(MainActivity.this);
-                btnNow.setBackgroundResource(R.drawable.tab_active);
-                btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
-                btnNow.setText("temp" + temp_num);// 即newFile返回的文件编号
-                btnNow.setPadding(0, 0, 0, 0);
-
-                // TODO 将其他button置为不活跃
-                if (file_cur_num >= 0) {
-                    Button btnLast = findViewById(button_id + file_cur_num);// TODO 找出当前文件对应的tab
-                    btnLast.setBackgroundResource(R.drawable.tab_notactive);// TODO
-                }
-
-                // TODO 为button标号
-                btnNow.setId(button_id + file_total_num);// TODO
-                file_cur_num = file_total_num;// 切换当前窗口为`新建文件`的对应窗口
-                file_total_num ++;// 文件数增加
-
-                // TODO 为button添加切换监听
-                btnNow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.i("fuck view", view.getId() - button_id + "");
-                        changeTab(view.getId());// 传递被点击按钮的id
-                    }
-                });
-                tab.addView(btnNow);// 添加按钮
+                newTempFile();
             }
         });
 
@@ -301,6 +240,89 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
             }
         });
+    }
+
+    protected void tempSave() {// 将输入框内容保存到临时文件中
+        // 从当前窗口获取临时文件的路径
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        String tempFile = preferences.getString(file_cur_num + "", "");// TODO 文件不存在
+        Log.i("fuck cur", tempFile + ">");
+
+        // 将EditText的内容写入临时文件
+        File file = new File(tempFile);
+        EditText text = findViewById(R.id.editText1);// 获取输入框
+        WriteFile tempWrite = new WriteFile();
+        int result = tempWrite.writeFile(text.getText().toString(), tempFile);// 写入临时文件
+        if (result == 0) {// TODO 保存成功
+            Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
+        } else {// 保存失败
+            Toast.makeText(MainActivity.this, file.getName() + " error", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    protected void openNewFile(String file) {// 打开非临时文件,并创建临时文件副本
+        // 将打开的文件与临时文件绑定,已经获取打开的文件的绝对路径
+        String tempfile = newTempFile();// 新建临时文件并打开,获取临时文件名
+        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(tempfile, file);// 将临时文件与打开的文件绑定
+        editor.commit();
+
+        // 将文件内容读取到输入框
+        ReadFile tempRead = new ReadFile();
+        EditText text = findViewById(R.id.editText1);
+        tempRead.readFile(file, text);// 如果文件不存在則会返回-1,将打开的文件的内容读入输入框
+
+        // TODO 保存到临时文件
+        tempSave();
+    }
+
+    protected String newTempFile() {// 新建临时文件并显示到最后一个窗口
+
+        // 新建文件
+        NewFile tempNew = new NewFile();
+        int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
+
+        // 将临时文件绑定到窗口号
+        String tempName = getExternalFilesDir(".").getAbsolutePath() + "/temp" + temp_num;// TODO 新临时文件的文件名
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 只能被自己的应用程序访问,打开窗口映射
+        SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
+        editor.putString(file_total_num + "", tempName);// TODO 将临时文件绑定到最大窗口号
+        editor.commit();// 保存
+        Log.i("fuck new temp", tempName + " " + file_total_num);// TODO
+        Log.i("fuck data", preferences.getString("" + file_total_num, "nothing fuck"));// 第二个参数:若找不到key,则返回第二个参数
+
+        // 在顶部栏创建tab
+        LinearLayout tab = findViewById(R.id.file_tab);
+        Button btnNow = new Button(MainActivity.this);
+        btnNow.setBackgroundResource(R.drawable.tab_active);
+        btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
+        btnNow.setText("temp" + temp_num);// TODO 为tab设定文件名
+        btnNow.setPadding(0, 0, 0, 0);
+
+        // TODO 将其他button置为不活跃
+        if (file_cur_num >= 0) {
+            Button btnLast = findViewById(button_id + file_cur_num);// TODO 找出当前文件对应的tab
+            btnLast.setBackgroundResource(R.drawable.tab_notactive);// TODO
+        }
+
+        // TODO 为button标号
+        btnNow.setId(button_id + file_total_num);// TODO
+        file_cur_num = file_total_num;// 切换当前窗口为`新建文件`的对应窗口
+        file_total_num ++;// 文件数增加
+
+        // TODO 为button添加切换监听
+        btnNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("fuck view", view.getId() - button_id + "");
+                changeTab(view.getId());// 传递被点击按钮的id
+            }
+        });
+        tab.addView(btnNow);// 添加按钮
+
+        // TODO 返回临时文件的绝对地址
+        return tempName;
     }
 
     public void changeTab(int click_id) {// TODO 切换窗口
