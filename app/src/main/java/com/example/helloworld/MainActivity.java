@@ -51,15 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
             // 获取打开的文件地址
             GetPath tempPath = new GetPath();
-            String path = tempPath.getPathFromUri(MainActivity.this, uri);// 将uri转成路径
+            String file = tempPath.getPathFromUri(MainActivity.this, uri);// 将uri转成路径
 
-            // 读取打开的文件内容
-            ReadFile tempRead = new ReadFile();
-            EditText text = findViewById(R.id.editText1);
-            int result = tempRead.readFile(path, text);// 如果文件不存在则会返回-1
-
-            // 加载文件路径
-            loadFile(path, result);
+            // TODO 打开文件
+            if (checkTemp(file)) {// 不能打开临时文件
+                return;
+            }
+            File temp = new File(file);
+            if (temp.exists()) {// 如果文件存在,才打开文件
+                openNewFile(file);// 将该文件与临时文件绑定并打开
+            }// TODO
         }
 
         // 首次检察权限
@@ -77,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {// 回调方法
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1) {// `打开`按钮
-
                 // 转换文件路径为绝对路径
                 Uri uri = data.getData();
                 GetPath tempPath = new GetPath();
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         openBtn.setOnClickListener(new View.OnClickListener() {// 点击`打开`按钮
             @Override
             public void onClick(View view) {
-                // 调用系统文件管理
+                // 调用系统文件管理,获取文件名
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");// 所有文件
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
