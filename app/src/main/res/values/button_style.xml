@@ -6,7 +6,6 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">@dimen/tab_width</item>
         <item name="android:background">@drawable/tab_active</item>
-        <item name="android:shadowRadius">5</item>
         <item name="android:layout_marginRight">0dp</item>
     </style>
 
@@ -16,7 +15,7 @@
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:background">@drawable/oval_blue</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="blue1">
@@ -25,7 +24,7 @@
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:background">@drawable/oval_blue1</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="blue2">
@@ -34,7 +33,7 @@
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:background">@drawable/oval_blue2</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <style name="blue3">
@@ -43,7 +42,7 @@
         <item name="android:layout_marginLeft">12dp</item>
         <item name="android:background">@drawable/oval_blue3</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">14dp</item>
     </style>
 
     <dimen name="tab_height">35dp</dimen>

@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -9,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -184,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnNew = findViewById(R.id.newButton);// `新建`按钮
         btnNew.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
                 // 新建文件
@@ -192,8 +195,14 @@ public class MainActivity extends AppCompatActivity {
 
                 // TODO 在顶部栏创建tab
                 LinearLayout tab = findViewById(R.id.file_tab);
-                Button btn = (Button) getLayoutInflater().inflate(R.style.tab_active, null);
+                Button btn = new Button(MainActivity.this);
+                btn.setBackgroundResource(R.drawable.tab_active);
+                btn.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
+                btn.setText("temp" + temp_num);
+                btn.setTextSize(12);
                 tab.addView(btn);
+
+                // TODO 为button标号
             }
         });
 
@@ -226,9 +235,9 @@ public class MainActivity extends AppCompatActivity {
 //                MyDialog dialog = new MyDialog(MainActivity.this, R.style.save_style);
 //                dialog.show();// TODO 点击事件,打开路径
 
-                SharedPreferences preferences = getSharedPreferences("file_name", MODE_PRIVATE);// 只能被自己的应用程序访问
-                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
-                Log.i("fuck data", preferences.getString("fuck", "nothing"));// 第二个参数:若找不到key,则返回第二个参数
+//                SharedPreferences preferences = getSharedPreferences("file_name", MODE_PRIVATE);// 只能被自己的应用程序访问
+//                SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
+//                Log.i("fuck data", preferences.getString("fuck", "nothing"));// 第二个参数:若找不到key,则返回第二个参数
             }
         });
     }
