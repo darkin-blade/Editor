@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
             // TODO 打开文件
             if (checkTemp(file)) {// 不能打开临时文件
+                Toast.makeText(this, "can't load tempFile " + file, Toast.LENGTH_SHORT).show();
                 return;
             }
             File temp = new File(file);
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // TODO 打开文件
                 if (checkTemp(file)) {// 不能打开临时文件
+                    Toast.makeText(this, "can't load tempFile " + file, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 File temp = new File(file);
@@ -101,16 +103,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
         tempSave();
-    }
-
-    private void loadFile(String file_name, int result) {// TODO `统计已经加载的文件`对外接口
-        if (result == 0) {// 文件打开成功
-            file_cur_num = 0;// TODO 默认-1
-            current_temp[file_cur_num] = file_name.replace("/.", "");// TODO 保存路径到当前文件编号,删除多余"/."
-            Toast.makeText(this, current_temp[file_cur_num] + " open succeed", Toast.LENGTH_LONG).show();
-        } else {// 文件打开失败
-            Toast.makeText(this, current_temp[file_cur_num] + " open failed", Toast.LENGTH_LONG).show();
-        }
     }
 
     public boolean checkTemp(String file_name) {// 检查是否是临时文件
