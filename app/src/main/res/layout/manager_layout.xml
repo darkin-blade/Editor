@@ -6,70 +6,290 @@
     android:background="@color/grey"
     android:elevation="1dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
-            android:background="@color/grey"
-            android:text="Save as"
-            android:textSize="20dp"
-            android:gravity="center">
-        </TextView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@color/grey_dark">
-        </View>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/file_outer"
-            android:background="@color/grey">
-
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="@dimen/file_outer"
-                android:layout_height="@dimen/file_outer"
-                android:padding="10dp">
-                <Button
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/oval_blue">
-                </Button>
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/file_outer"
-            android:background="@color/grey">
-
-            <LinearLayout
-                android:layout_width="@dimen/file_outer"
-                android:layout_height="@dimen/file_outer"
-                android:padding="10dp">
-                <Button
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/oval_blue">
-                </Button>
-            </LinearLayout>
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:background="@color/grey"
-                android:text="storage/">
-            </Button>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/title_height"
+                    android:background="@color/grey"
+                    android:text="Save as"
+                    android:textSize="20dp"
+                    android:gravity="center">
+                </TextView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@color/grey_dark">
+                </View>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/file_outer"
+                    android:background="@color/grey">
+                    <LinearLayout
+                        android:layout_width="@dimen/file_outer"
+                        android:layout_height="@dimen/file_outer"
+                        android:padding="10dp">
+                        <Button
+                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:background="@drawable/oval_blue">
+                        </Button>
+                    </LinearLayout>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@color/grey"
+                        android:text="storage/">
+                    </Button>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <Button
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/oval_blue">
+                    </Button>
+                </LinearLayout>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:background="@color/grey"
+                    android:text="storage/">
+                </Button>
+            </LinearLayout>
 
         </LinearLayout>
+    </RelativeLayout>
 
-    </LinearLayout>
 
 </LinearLayout>
