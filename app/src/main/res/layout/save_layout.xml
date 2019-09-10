@@ -10,31 +10,33 @@
         android:layout_centerInParent="true"
         android:orientation="vertical"
         android:layout_margin="10dp"
-        android:elevation="5dp">
+        android:elevation="5dp"
+        android:padding="7dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="File has been changed"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:layout_margin="10dp"/>
+
+        <View
+            style="@style/file_manager">
+        </View>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Please input file name:"
+            android:text="Do you want to save file?"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:layout_marginTop="10dp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/save_input_drawable"
-            android:padding="2dp"
-            android:inputType="text"/>
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:padding="6dp"
             android:orientation="horizontal">
 
             <Button
