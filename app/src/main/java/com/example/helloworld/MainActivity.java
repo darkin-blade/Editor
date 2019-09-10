@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     int button_id = 1234321;// button的起始id
 
     public MyDialog dialog;
-    public int dialog_result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,11 +213,11 @@ public class MainActivity extends AppCompatActivity {
         // 显示`是否保存`提示框
         dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
 
-
-        // TODO TODO TODO
         dialog.show();// TODO 获取点击结果
 
-        Log.i("fuck", "return " + dialog_result);
+        while (dialog.result == -999) {
+            Log.i("fuck", "return " + dialog.result);
+        }
 //
 //        // 删除标签栏
 //        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);

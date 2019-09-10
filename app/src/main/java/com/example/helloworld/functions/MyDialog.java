@@ -3,15 +3,18 @@ package com.example.helloworld.functions;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.helloworld.MainActivity;
 import com.example.helloworld.R;
 
 public class MyDialog extends Dialog {
-    private Button yes;
-    private Button cancel;
-    private Button no;
+    public Button yes;
+    public Button cancel;
+    public Button no;
+    public int result;
 
     public MyDialog(Context context, int style) {
         super(context, style);
@@ -23,7 +26,16 @@ public class MyDialog extends Dialog {
         setContentView(R.layout.save_layout);
 
         initButton();// 初始化按钮和监听
-        // TODO TODO TODO
+        result = -999;
+        yes.setOnClickListener(new View.OnClickListener() {//
+            @Override
+            public void onClick(View view) {
+                result = 1;
+                dismiss();
+                Log.i("fuck result", result + "");
+            }
+        });
+        // TODO
     }
 
     private void initButton() {
