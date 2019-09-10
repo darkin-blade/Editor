@@ -137,8 +137,11 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < file_total_num ; i ++) {// TODO
             // 获取临时文件路径
             tempPath = preferences.getString(i + "", null);
-            if (tempPath == null) {// TODO
-                new AssertionError("reopen error");
+            if (tempPath == null) {// TODO 不明情况,取消所有文件
+                Log.i("fuck reopen", file_cur_num + "===" + file_total_num);// TODO
+                file_cur_num = i - 1;
+                file_total_num = i;
+                break;// TODO
             }
 
             // TODO 恢复文件
