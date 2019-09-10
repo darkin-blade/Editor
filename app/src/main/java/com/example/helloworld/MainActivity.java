@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     String[] current_temp = new String[5];// 所有打开文件对应的临时文件
     int file_total_num = 0;// TODO 当前打开的文件总数
-    int file_cur_num = -1;// TODO 当前窗口的文件编号,-1为空
+    int file_cur_num = -1;// TODO 当前窗口的文件编号,-1为空(初始值)
     int buttonMove = 280;// 所有button一起移动的水平参数
     int button_id = 1234321;// button的起始id
 
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         // 先检查是否是app目录
         File file = new File(path);
         String dir_path = file.getParent();// TODO 不包含"/."
-        Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());// TODO
+        Log.i("fuck checktemp" + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());// TODO
         Log.i(file.getName(), Pattern.matches("^temp\\d{1,2}$", file.getName()) + "");// TODO
         if (!Pattern.matches(dir_path + "(/.)*(/)*", MainActivity.this.getExternalFilesDir(".").getAbsolutePath())) {// 如果不是app目录
             return false;
@@ -236,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void closeTab() {// TODO 必须打开至少一个文件
-        Log.i("fuck result", dialog.result + "");
+        Log.i("fuck dialog result", dialog.result + "");
         if (dialog.result == 0) {// `取消`
             return;
         } else {
@@ -273,7 +274,6 @@ public class MainActivity extends AppCompatActivity {
                 // 修改button编号
                 btnNow = findViewById(button_id + i);
                 btnNow.setId(button_id + i - 1);// 将id - 1
-                Log.i("fucking", "i: " + i + " find: " + (findViewById(button_id + i - 1) != null));
 
                 // 修改tab绑定的临时文件
                 tempPath = preferences.getString(i + "", null);
@@ -304,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         } else {// TODO 打开一个文件
             file_cur_num --;
             if (file_cur_num != -1) {
-                new AssertionError("no file????");
+                new AssertionError("all file closed: " + file_total_num);
             }
         }
 
@@ -317,7 +317,9 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
         String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
         if (tempPath == null) {// TODO 没有打开任何文件
-            Log.i("fuck total", file_total_num + "");
+            if (file_total_num != 0) {
+                new AssertionError("file total: " + file_total_num);
+            }
             return;// TODO
         }
 
@@ -339,7 +341,6 @@ public class MainActivity extends AppCompatActivity {
         if (tempPath == null) {// TODO 没有打开文件
             return;
         }
-        Log.i("fuck cur", tempPath + " temp saved");// TODO
 
         // 将EditText的内容写入临时文件
         File tempFile = new File(tempPath);
@@ -355,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
         // 将打开的文件与临时文件绑定,已经获取打开的文件的绝对路径
-        String tempPath = createFile();// 新建临时文件并打开,获取临时文件名
+        String tempPath = createFile();// TODO 新建临时文件并打开,获取临时文件名,修改总文件数和当前文件编号
         SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
         SharedPreferences.Editor editor = preferencesFile.edit();
         editor.putString(tempPath, path);// 将临时文件与打开的文件绑定
@@ -381,8 +382,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = preferences.edit();// 用于编辑存储数据
         editor.putString(file_total_num + "", tempName);// TODO 将临时文件绑定到最大窗口号
         editor.commit();// 保存
-        Log.i("fuck new temp", tempName + " " + file_total_num);// TODO
-        Log.i("fuck data", preferences.getString("" + file_total_num, "nothing fuck"));// 第二个参数:若找不到key,则返回第二个参数
 
         // 在顶部栏创建tab
         LinearLayout tab = findViewById(R.id.file_tab);
