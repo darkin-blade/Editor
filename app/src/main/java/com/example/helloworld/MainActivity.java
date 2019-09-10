@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
             // 在顶部栏创建tab
             LinearLayout tab = findViewById(R.id.file_tab);
             Button btnNow = new Button(MainActivity.this);
-            btnNow.setBackgroundResource(R.drawable.tab_active);
+            btnNow.setBackgroundResource(R.drawable.tab_notactive);// TODO 设置背景不活跃
             btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
             btnNow.setText(tempFile.getName());// TODO 为tab设定文件名
             btnNow.setPadding(0, 0, 0, 0);
@@ -181,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         dialog = new MyDialog(this, R.style.save_style);// TODO 临时用
         dialog.result = -1;// TODO 默认删除所有文件
         for (int i = 0; i < non_num ; i ++) {
+            file_cur_num = non_array[i] - button_id;// TODO 临时修改当前窗口
             changeTab(non_array[i]);
             closeTab();// TODO
         }
@@ -317,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    protected void closeTab() {// TODO 必须打开至少一个文件
+    protected void closeTab() {// TODO 必须打开至少一个文件,会修改总文件数
         Log.i("fuck dialog result", dialog.result + "");
         if (dialog.result == 0) {// `取消`
             return;
