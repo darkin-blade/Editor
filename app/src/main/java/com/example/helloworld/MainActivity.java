@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
         // 解除链接
         SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferencesFile.edit();
-        editor.putString(tempPath, null);// TODO 解除临时文件的链接,如果本来就是临时文件则该操作不造成任何影响
+        editor.putString(tempPath, null);// TODO 解除临时文件的链接
         editor.commit();
     }
 
@@ -260,9 +260,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
 
         // TODO 关闭当前页面标签
-        Button btn = findViewById(button_id + file_cur_num);// 获取当前要关闭的页面tab
+        Button btnLast = findViewById(button_id + file_cur_num);// 获取当前要关闭的页面tab
         LinearLayout tab = findViewById(R.id.file_tab);
-        tab.removeView(btn);
+        tab.removeView(btnLast);
 
         // 分情况转移标签, TODO TODO 修改标签名
         if (file_cur_num + 2 <= file_total_num) {// 不是最后一个文件
@@ -289,9 +289,12 @@ public class MainActivity extends AppCompatActivity {
             editor.putString(file_total_num - 1 + "", null);
             editor.commit();
 
-            // 切换至临近窗口
+            // 切换至临近窗口,不能将文本框内容保存到file_cur_num对应文件中
             btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
+            int temp = file_cur_num;
+            file_cur_num = -999999;
             btnNow.callOnClick();
+            file_cur_num = temp;
         } else if (file_cur_num >= 1) {// 当前打开不止一个文件,且是最后一个标签页
             // 解除窗口和最后一个文件的链接
             SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
@@ -339,26 +342,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         dialog.show();// TODO 获取点击结果
-    }
-
-    protected void tempSave() {// 将输入框内容保存到临时文件中
-        // 从当前窗口获取临时文件的路径
-        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
-        String tempPath = preferences.getString(file_cur_num + "", null);// 文件不存在则返回null
-        if (tempPath == null) {// TODO 没有打开文件
-            return;
-        }
-
-        // 将EditText的内容写入临时文件
-        File tempFile = new File(tempPath);
-        EditText text = findViewById(R.id.editText1);// 获取输入框
-        WriteFile tempWrite = new WriteFile();
-        int result = tempWrite.writeFile(text.getText().toString(), tempPath);// 写入临时文件
-        if (result == 0) {// TODO 保存成功
-            Toast.makeText(MainActivity.this, tempFile.getName() + " temp save", Toast.LENGTH_LONG).show();
-        } else {// 保存失败
-            Toast.makeText(MainActivity.this, tempFile.getName() + " temp save error", Toast.LENGTH_LONG).show();
-        }
     }
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
@@ -419,26 +402,49 @@ public class MainActivity extends AppCompatActivity {
         return tempName;
     }
 
-    public void changeTab(int click_id) {// TODO 切换窗口
-        // 将旧的窗口置为不活跃
+    protected void tempSave() {// 将输入框内容保存到临时文件中
+        // 从当前窗口获取临时文件的路径
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        String tempPath = preferences.getString(file_cur_num + "", null);// 文件不存在则返回null
+        if (tempPath == null) {// TODO 没有打开文件
+            return;
+        }
+
+        // 将EditText的内容写入临时文件
+        File tempFile = new File(tempPath);
+        EditText text = findViewById(R.id.editText1);// 获取输入框
+        WriteFile tempWrite = new WriteFile();
+        int result = tempWrite.writeFile(text.getText().toString(), tempPath);// 写入临时文件
+        if (result == 0) {// TODO 保存成功
+            Toast.makeText(MainActivity.this, tempFile.getName() + " temp save", Toast.LENGTH_SHORT).show();
+        } else {// 保存失败
+            Toast.makeText(MainActivity.this, tempFile.getName() + " temp save error", Toast.LENGTH_SHORT).show();
+        }
+
+        Log.i("fuck temp save", text.getText().toString() + " " + tempPath);// TODO
+    }
+
+    public void changeTab(int tabNew) {// TODO 切换窗口
+
+        // TODO 将旧的窗口置为不活跃,如果不需要此步,将file_cur_num置为负数
         Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
         if (btnLast != null) {// TODO 由关闭事件调用的此函数,至少还留有一个打开的文件窗口
-            // TODO 保存到临时文件
-            tempSave();
+            tempSave();// TODO 保存到临时文件
             btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
         }
 
         // 将新的窗口置为活跃
-        Button btnNow = findViewById(click_id);// 找出被点击的tab
+        Button btnNow = findViewById(tabNew);// 找出被点击的tab
         btnNow.setBackgroundResource(R.drawable.tab_active);// 置为活跃
-        file_cur_num = click_id - button_id;// TODO 切换当前文件
+        file_cur_num = tabNew - button_id;// TODO 切换当前文件
+
+        // 获取新窗口文件路径
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 获取窗口对应临时文件的路径
+        String tempPath = preferences.getString(file_cur_num + "", null);
 
         // 读取新窗口对应文件的数据
         EditText text = findViewById(R.id.editText1);
         ReadFile tempRead = new ReadFile();
-        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 获取窗口对应临时文件的路径
-        String tempPath = preferences.getString(file_cur_num + "", null);
-        Log.i("fuck changeTab", tempPath);
         tempRead.readFile(tempPath, text);
     }
 }
