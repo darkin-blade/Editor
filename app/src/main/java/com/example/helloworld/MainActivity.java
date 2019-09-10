@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
     }
 
-    protected void closeTab() {// TODO
+    protected void closeTab() {// TODO 必须打开至少一个文件
         Log.i("fuck result", dialog.result + "");
         if (dialog.result == 0) {// `取消`
             return;
@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
             if (dialog.result == 1) {// `保存`
                 if (saveFile(tempPath) == 0) {// TODO 保存当前窗口文件成功,删除临时文件
-                    removeFile(tempPath);// 删除临时文件, TODO
+                    removeFile(tempPath);// 删除临时文件
                 } else {// TODO 保存失败
                     return;
                 }
@@ -254,20 +254,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 只有在点击删除或确定保存的情况下进行此步
-        // 删除标签栏
         Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
+
+        // TODO 关闭当前页面标签
+        Button btn = findViewById(button_id + file_cur_num);// 获取当前要关闭的页面tab
+        LinearLayout tab = findViewById(R.id.file_tab);
+        tab.removeView(btn);
+
+        // 分情况转移标签
         if (file_cur_num + 2 <= file_total_num) {// 不是最后一个文件
             ;
-        } else if (file_cur_num > 1) {// 当前打开不止一个文件
+        } else if (file_cur_num > 1) {// 当前打开不止一个文件,且是最后一个标签页
             ;
-        } else {// 没有打开文件
+        } else {// 打开一个文件
             ;
         }
 //        if (file_cur_num >= 0) {// 当前是否打开了文件
-//            // 关闭当前页面
-//            Button btn = findViewById(button_id + file_cur_num);// TODO 获取当前要关闭的页面tab
-//            LinearLayout tab = findViewById(R.id.file_tab);
-//            tab.removeView(btn);
+
 //
 //            // 切换至邻近页面
 //            // TODO 修改数据库
