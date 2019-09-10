@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{permission}, 1);// 获取`写`权限
         }
 
-        createBtn();// 为所有按钮绑定点击事件
-
+        // 为所有按钮绑定点击事件
+        createBtn();
     }
 
     @Override
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
             // 切换至临近窗口
             btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
             btnNow.callOnClick();
-        } else if (file_cur_num > 1) {// 当前打开不止一个文件,且是最后一个标签页
+        } else if (file_cur_num >= 1) {// 当前打开不止一个文件,且是最后一个标签页
             // 解除窗口和最后一个文件的链接
             SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
