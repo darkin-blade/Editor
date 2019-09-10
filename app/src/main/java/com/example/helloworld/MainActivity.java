@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -204,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void closeTab() {
+    protected void closeTab() {// TODO
         Log.i("fuck result", dialog.result + "");
 //        // 删除标签栏
 //        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
@@ -255,6 +256,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 显示`是否保存`提示框
         dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                closeTab();
+            }
+        });
         dialog.show();// TODO 获取点击结果
     }
 

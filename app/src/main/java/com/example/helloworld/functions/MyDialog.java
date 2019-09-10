@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.helloworld.MainActivity;
 import com.example.helloworld.R;
 
 public class MyDialog extends Dialog {
@@ -18,12 +17,14 @@ public class MyDialog extends Dialog {
 
     public MyDialog(Context context, int style) {
         super(context, style);
+        Log.i("fuck", "super");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save_layout);
+        Log.i("fuck", "create");
 
         initButton();// 初始化按钮和监听
         result = -999;
