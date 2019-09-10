@@ -178,20 +178,7 @@ public class MainActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (current_temp[0] == null) {// TODO 没有打开任何文件
-                    Toast.makeText(MainActivity.this, "TODO save", Toast.LENGTH_SHORT).show();
-                } else {
-                    // 将EditText的内容写入当前文件
-                    EditText text = findViewById(R.id.editText1);
-                    WriteFile tempWrite = new WriteFile();
-                    String file_name = current_temp[0];// TODO 当前文件
-                    int result = tempWrite.writeFile(text.getText().toString(), file_name);
-                    if (result == 0) {// 保存成功
-                        Toast.makeText(MainActivity.this, file_name + " save succeed", Toast.LENGTH_LONG).show();
-                    } else {// 保存失败
-                        Toast.makeText(MainActivity.this, file_name + " save failed", Toast.LENGTH_LONG).show();
-                    }
-                }
+                saveNewFile();
             }
         });
 
@@ -205,8 +192,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    protected void saveNewFile() {// 保存文件,并删除临时文件
+        // 获取临时文件名和文件名
+        SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
+        String file = preferencesFile.getString(tempFile, null);
+
+        if (file == null) {// 新建的临时文件
+            ;// TODO 调用文件管理器
+        }
+
+        if (file == null) {// 调用文件管理器之后没有进行保存(取消了保存操作)
+            Toast.makeText(MainActivity.this, "save canceled", Toast.LENGTH_LONG).show();// TODO
+            return;// 取消操作
+        }
+
+        // 将EditText的内容写入文件
+        EditText text = findViewById(R.id.editText1);
+        WriteFile tempWrite = new WriteFile();
+        int result = tempWrite.writeFile(text.getText().toString(), file);// TODO 写入文件
+        if (result == 0) {// 保存成功
+            Toast.makeText(MainActivity.this, file + " save succeed", Toast.LENGTH_LONG).show();
+        } else {// 保存失败
+            Toast.makeText(MainActivity.this, file + " save failed", Toast.LENGTH_LONG).show();
+        }
+    }
+
     protected void closeTab() {// TODO
         Log.i("fuck result", dialog.result + "");
+        if (dialog.result == 0) {// `取消`
+            return;
+        } else if (dialog.result == 1) {// `保存`
+            ;// TODO
+        }
 //        // 删除标签栏
 //        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
 //        if (file_cur_num >= 0 && false) {// 当前是否打开了文件
