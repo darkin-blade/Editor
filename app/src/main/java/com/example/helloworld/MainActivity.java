@@ -169,8 +169,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 createFile();
-                Button tempBtn = findViewById(button_id + file_cur_num);// TODO
+                Button tempBtn = findViewById(button_id + file_total_num);// TODO
                 tempBtn.callOnClick();
+                file_cur_num = file_total_num;// TODO 切换当前窗口为`新建文件`的对应窗口
+                file_total_num ++;// TODO 文件数增加
             }
         });
 
@@ -361,19 +363,18 @@ public class MainActivity extends AppCompatActivity {
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
         // 将打开的文件与临时文件绑定,已经获取打开的文件的绝对路径
-        String tempPath = createFile();// TODO 新建临时文件并打开,获取临时文件名,修改总文件数和当前文件编号
+        String tempPath = createFile();// TODO 新建临时文件并打开,获取临时文件名
         SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
         SharedPreferences.Editor editor = preferencesFile.edit();
         editor.putString(tempPath, path);// 将临时文件与打开的文件绑定
         editor.commit();
 
         // 将文件内容读取到输入框
+        file_cur_num = file_total_num;// TODO 切换当前窗口为`新建文件`的对应窗口
+        file_total_num ++;// TODO 文件数增加
         ReadFile tempRead = new ReadFile();
         EditText text = findViewById(R.id.editText1);
         tempRead.readFile(path, text);// 如果文件不存在則会返回-1,将打开的文件的内容读入输入框
-
-        // TODO 保存到临时文件
-        tempSave();
     }
 
     protected String createFile() {// 新建临时文件并显示到最后一个窗口, TODO TODO 文件名的显示
@@ -404,8 +405,6 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO 为button标号
         btnNow.setId(button_id + file_total_num);// TODO
-        file_cur_num = file_total_num;// 切换当前窗口为`新建文件`的对应窗口
-        file_total_num ++;// 文件数增加
 
         // TODO 为button添加切换监听
         btnNow.setOnClickListener(new View.OnClickListener() {
@@ -424,6 +423,8 @@ public class MainActivity extends AppCompatActivity {
         // 将旧的窗口置为不活跃
         Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
         if (btnLast != null) {// TODO 由关闭事件调用的此函数,至少还留有一个打开的文件窗口
+            // TODO 保存到临时文件
+            tempSave();
             btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
         }
 
