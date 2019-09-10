@@ -261,42 +261,54 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout tab = findViewById(R.id.file_tab);
         tab.removeView(btn);
 
-        // 分情况转移标签
+        // 分情况转移标签, TODO TODO 修改标签名
         if (file_cur_num + 2 <= file_total_num) {// 不是最后一个文件
-            ;
-        } else if (file_cur_num > 1) {// 当前打开不止一个文件,且是最后一个标签页
-            ;
-        } else {// 打开一个文件
-            ;
-        }
-//        if (file_cur_num >= 0) {// 当前是否打开了文件
+            Button btnNow = null;
+            String tempPath = null;// 保存临时文件绝对路径
+            SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
 
-//
-//            // 切换至邻近页面
-//            // TODO 修改数据库
-//            if (file_cur_num == file_total_num - 1) {// 关闭的是最后一个文件
-//                // 打开前一个文件
-//                if (file_total_num > 1) {// 还能够打开另一个文件
-//                    Button btnNow = findViewById(button_id + file_cur_num - 1);
-//                    btnNow.callOnClick();
-//                } else {
-//                    file_cur_num --;// TODO
-//                }
-//            } else {// 将文件从后往前移动,补空位
-//                Button btnNow = null;
-//                for (int i = file_cur_num + 1; i < file_total_num ; i ++) {
-//                    btnNow = findViewById(button_id + i);
-//                    btnNow.setId(button_id + i - 1);// 将id - 1
-//                    Log.i("fucking", "i: " + i + " find: " + (findViewById(button_id + i - 1) != null));
-//                }
-//                btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
-//                btnNow.callOnClick();
-//            }
-//            file_total_num --;// TODO 总文件数减少
-//
-//        } else {
-//            Log.i("fuck cur_total", file_cur_num + "===" + file_total_num);
-//        }
+            // 从当前窗口往后修改(向前平移)
+            for (int i = file_cur_num + 1; i < file_total_num ; i ++) {
+                // 修改button编号
+                btnNow = findViewById(button_id + i);
+                btnNow.setId(button_id + i - 1);// 将id - 1
+                Log.i("fucking", "i: " + i + " find: " + (findViewById(button_id + i - 1) != null));
+
+                // 修改tab绑定的临时文件
+                tempPath = preferences.getString(i + "", null);
+                if (tempPath == null) {
+                    new AssertionError("invalid tab and tempPath");// TODO 得到null
+                }
+                editor.putString(i - 1 + "", tempPath);// 将临时文件名绑定到前一个标签栏
+            }
+
+            // TODO 解除最后一个标签页的绑定
+            editor.putString(file_total_num - 1 + "", null);
+            editor.commit();
+
+            // 切换至临近窗口
+            btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
+            btnNow.callOnClick();
+        } else if (file_cur_num > 1) {// 当前打开不止一个文件,且是最后一个标签页
+            // 打开前一个文件,此时最后一个标签页已关闭
+            Button btnNow = findViewById(button_id + file_cur_num - 1);
+            btnNow.callOnClick();
+
+            // 解除窗口和最后一个文件的链接
+            SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(file_cur_num + "", null);// 最后一个窗口不再绑定临时文件
+            editor.commit();
+            file_cur_num --;// TODO
+        } else {// TODO 打开一个文件
+            file_cur_num --;
+            if (file_cur_num != -1) {
+                new AssertionError("no file????");
+            }
+        }
+        file_total_num --;// 总文件数减少
+
         Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
     }
 
@@ -358,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
         tempSave();
     }
 
-    protected String newTempFile() {// 新建临时文件并显示到最后一个窗口
+    protected String newTempFile() {// 新建临时文件并显示到最后一个窗口, TODO TODO 文件名的显示
         // 新建临时文件
         NewFile tempNew = new NewFile();
         int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
