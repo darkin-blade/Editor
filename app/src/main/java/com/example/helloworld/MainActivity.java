@@ -437,7 +437,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnNow = findViewById(tabNew);// 找出被点击的tab
         btnNow.setBackgroundResource(R.drawable.tab_active);// 置为活跃
         file_cur_num = tabNew - button_id;// TODO 切换当前文件
-        Log.i("fuck change tab", file_cur_num + "");
 
         // 获取新窗口文件路径
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 获取窗口对应临时文件的路径
