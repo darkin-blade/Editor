@@ -15,5 +15,7 @@
     <color name="black">#000000</color>
     <color name="blue_light">#d0f0ff</color>
     <color name="blue_dark">#007fc0</color>
+    <color name="orange">#ffc430</color>
+    <color name="yellow">#ffe060</color>
     <color name="transparent">#00000000</color>
 </resources>

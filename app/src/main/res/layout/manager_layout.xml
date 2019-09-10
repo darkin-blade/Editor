@@ -22,7 +22,6 @@
         android:background="@color/grey_dark">
     </View>
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="450dp">
@@ -31,7 +30,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/file_outer"
@@ -43,7 +41,7 @@
                     <Button
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
-                        android:background="@drawable/oval_blue">
+                        android:background="@drawable/dir_item">
                     </Button>
                 </LinearLayout>
                 <Button
@@ -77,8 +75,6 @@
                     android:text="storage/">
                 </Button>
             </LinearLayout>
-
-
 
         </LinearLayout>
     </ScrollView>
