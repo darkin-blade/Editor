@@ -221,11 +221,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void removeFile(String tempPath) {
+        // 删除文件
         File tempFile = new File(tempPath);
         tempFile.delete();// TODO 如果文件不存在
+        if (tempFile.exists()) {// TODO 判断是否删除成功
+            Toast.makeText(MainActivity.this, tempPath + " deleted", Toast.LENGTH_LONG).show();
+        }
+
+        // 解除链接
         SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);
         SharedPreferences.Editor editor = preferencesFile.edit();
-        editor.putString(tempPath, null);// TODO 解除临时文件的链接
+        editor.putString(tempPath, null);// TODO 解除临时文件的链接,如果本来就是临时文件则该操作不造成任何影响
+        editor.commit();
     }
 
     protected void closeTab() {// TODO
@@ -237,8 +244,12 @@ public class MainActivity extends AppCompatActivity {
             String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
             if (dialog.result == 1) {// `保存`
                 if (saveFile(tempPath) == 0) {// TODO 保存当前窗口文件成功,删除临时文件
-                    removeFile(tempPath);
-                };// TODO
+                    removeFile(tempPath);// 删除临时文件
+                } else {// TODO 保存失败
+                    return;
+                }
+            } else if (dialog.result == -1) {// 不保存文件
+                removeFile(tempPath);
             }
         }
 //        // 删除标签栏
