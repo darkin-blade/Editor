@@ -10,15 +10,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.helloworld.functions.GetPath;
@@ -279,7 +283,14 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                closeCurFile();// 关闭当前窗口的文件
+                PopupWindow popupWindow = new PopupWindow(MainActivity.this);
+                popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+                popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+                popupWindow.setContentView(LayoutInflater.from(MainActivity.this).inflate(R.layout.save_layout, null));
+                popupWindow.setOutsideTouchable(false);
+                popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+                popupWindow.showAsDropDown(view);
+                // closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
     }
