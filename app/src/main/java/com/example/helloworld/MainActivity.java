@@ -186,8 +186,12 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < non_num ; i ++) {
             file_cur_num = non_array[i] - button_id;// TODO 临时修改当前窗口
             changeTab(non_array[i]);
-            closeTab();// TODO
+            closeTab();// TODO 会移除临时文件的链接
         }
+    }
+
+    public void checkDelete() {// 在软件运行的时候检查是否有正在写的文件被删
+        ;
     }
 
     public boolean checkTemp(String path) {// 检查是否是临时文件
