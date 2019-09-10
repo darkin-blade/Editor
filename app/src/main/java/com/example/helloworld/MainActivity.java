@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
         String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
         SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String file = preferencesFile.getString(tempFile, null);
+        String file = preferences.getString(tempFile, null);
 
         if (file == null) {// 新建的临时文件
             ;// TODO 调用文件管理器
@@ -267,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
         String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
         SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String file = preferencesFile.getString(tempFile, null);
+        String file = preferences.getString(tempFile, null);
         if (file == null || tempFile == null) {// TODO
             Log.i("fuck close", "failed");
             // return;// TODO
