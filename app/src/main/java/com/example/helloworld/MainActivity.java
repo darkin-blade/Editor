@@ -371,6 +371,9 @@ public class MainActivity extends AppCompatActivity {
         ReadFile tempRead = new ReadFile();
         EditText text = findViewById(R.id.editText1);
         tempRead.readFile(path, text);// 如果文件不存在則会返回-1,将打开的文件的内容读入输入框
+
+        // TODO 保存到临时文件
+        tempSave();
     }
 
     protected String createFile() {// 新建临时文件并显示到最后一个窗口, TODO TODO 文件名的显示
@@ -421,8 +424,6 @@ public class MainActivity extends AppCompatActivity {
         // 将旧的窗口置为不活跃
         Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
         if (btnLast != null) {// TODO 由关闭事件调用的此函数,至少还留有一个打开的文件窗口
-            // TODO 保存到原窗口的临时文件
-            tempSave();
             btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
         }
 
