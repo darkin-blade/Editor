@@ -298,11 +298,11 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(file_cur_num + "", null);// 最后一个窗口不再绑定临时文件
             editor.commit();
-            file_cur_num --;// TODO
 
             // TODO 打开前一个文件,此时最后一个标签页已被删除
-            Button btnNow = findViewById(button_id + file_cur_num);// 前一个文件的标签栏
+            Button btnNow = findViewById(button_id + file_cur_num - 1);// 前一个文件的标签栏
             btnNow.callOnClick();
+            file_cur_num --;// TODO
         } else {// TODO 只打开了一个文件
             // 关闭所有文件
             file_cur_num --;
@@ -438,6 +438,7 @@ public class MainActivity extends AppCompatActivity {
         ReadFile tempRead = new ReadFile();
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 获取窗口对应临时文件的路径
         String tempPath = preferences.getString(file_cur_num + "", null);
+        Log.i("fuck changeTab", tempPath);
         tempRead.readFile(tempPath, text);
     }
 }
