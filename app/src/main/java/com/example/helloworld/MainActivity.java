@@ -104,6 +104,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
         tempSave();
+
+        // 保存当前的窗口号
+        SharedPreferences curNum = getSharedPreferences("temp_num", MODE_PRIVATE);
+        SharedPreferences.Editor editor = curNum.edit();
+        editor.putInt("file_cur_num", file_cur_num);// TODO 保存窗口号
+        editor.putInt("file_total_num", file_total_num);// TODO 保存总窗口号
     }
 
     protected void reOpen() {// 恢复未关闭的页面
@@ -242,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
     protected void removeFile(String tempPath) {
         // 删除文件
         File tempFile = new File(tempPath);
-        tempFile.delete();// TODO 如果文件不存在
+        tempFile.delete();// TODO 如果文件不存在(在没有运行软件时被删除)
         if (tempFile.exists()) {// TODO 判断是否删除成功
             Toast.makeText(MainActivity.this, tempPath + " deleted", Toast.LENGTH_LONG).show();
         }
@@ -436,13 +442,6 @@ public class MainActivity extends AppCompatActivity {
         } else {// 保存失败
             Toast.makeText(MainActivity.this, tempFile.getName() + " temp save error", Toast.LENGTH_SHORT).show();
         }
-
-        // 保存当前的窗口号
-        SharedPreferences curNum = getSharedPreferences("temp_num", MODE_PRIVATE);
-        SharedPreferences.Editor editor = curNum.edit();
-        editor.putInt("file_cur_num", file_cur_num);// TODO 保存窗口号
-        editor.putInt("file_total_num", file_total_num);// TODO 保存总窗口号
-        Log.i("fuck temp save", text.getText().toString() + " " + tempPath);// TODO
     }
 
     public void changeTab(int tabNew) {// TODO 切换窗口
