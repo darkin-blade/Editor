@@ -8,25 +8,30 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
 import com.example.helloworld.MainActivity;
 import com.example.helloworld.R;
 
-public class MyDialog extends PopupWindow {
+public class MyWindow extends PopupWindow {
     public Button yes;
     public Button cancel;
     public Button no;
     public int result;
 
-    public MyDialog(Context context, View view) {
+    public MyWindow(Context context, View view) {
         super(context);
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         this.setContentView(LayoutInflater.from(context).inflate(R.layout.manager_layout, null));
-        this.setOutsideTouchable(false);
-        this.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        // this.setOutsideTouchable(false);
+        this.setBackgroundDrawable(null);
+        this.setFocusable(true);// 否则无法进行edittext输入
+
         this.showAsDropDown(view);
+        this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        this.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
     }
 }

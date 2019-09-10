@@ -6,27 +6,21 @@ import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.example.helloworld.functions.GetPath;
-import com.example.helloworld.functions.MyDialog;
+import com.example.helloworld.functions.MyWindow;
 import com.example.helloworld.functions.NewFile;
 import com.example.helloworld.functions.ReadFile;
 import com.example.helloworld.functions.WriteFile;
@@ -44,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     int buttonMove = 280;// 所有button一起移动的水平参数
     int button_id = 1234321;// button的起始id
 
-    public MyDialog dialog;
+    public MyWindow dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         ReadFile tempRead = new ReadFile();
         tempRead.readFile(preferences.getString(file_cur_num + "", null), text);// TODO 文件不存在
         changeTab(button_id + file_cur_num);// TODO
-//        dialog = new MyDialog(this, R.style.save_style);// TODO 临时用 TODO
+//        dialog = new MyWindow(this, R.style.save_style);// TODO 临时用 TODO
 //        dialog.result = -1;// TODO 默认删除所有文件
         for (int i = 0; i < non_num ; i ++) {
             file_cur_num = non_array[i] - button_id;// TODO 临时修改当前窗口
@@ -283,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                MyDialog popupWindow = new MyDialog(MainActivity.this, view);
+                MyWindow popupWindow = new MyWindow(MainActivity.this, view);
                 // closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
@@ -426,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 显示`是否保存`提示框 TODO
-//        dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
+//        dialog = new MyWindow(MainActivity.this, R.style.save_style);// 新建dialog
 //        dialog.setCanceledOnTouchOutside(false);
 //        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 //            @Override
