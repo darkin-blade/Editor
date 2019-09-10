@@ -54,16 +54,16 @@ public class MainActivity extends AppCompatActivity {
 
             // 获取打开的文件地址
             GetPath tempPath = new GetPath();
-            String file = tempPath.getPathFromUri(MainActivity.this, uri);// 将uri转成路径
+            String path = tempPath.getPathFromUri(MainActivity.this, uri);// 将uri转成路径
 
             // TODO 打开文件
-            if (checkTemp(file)) {// 不能打开临时文件
-                Toast.makeText(this, "can't load tempFile " + file, Toast.LENGTH_SHORT).show();
+            if (checkTemp(path)) {// 不能打开临时文件
+                Toast.makeText(this, "can't load tempFile " + path, Toast.LENGTH_SHORT).show();
                 return;
             }
-            File temp = new File(file);
+            File temp = new File(path);
             if (temp.exists()) {// 如果文件存在,才打开文件
-                openNewFile(file);// 将该文件与临时文件绑定并打开
+                openNewFile(path);// 将该文件与临时文件绑定并打开
             }// TODO
         }
 
@@ -85,16 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 // 转换文件路径为绝对路径
                 Uri uri = data.getData();
                 GetPath tempPath = new GetPath();
-                String file = tempPath.getPathFromUri(this, uri);// 将uri转成路径
+                String path = tempPath.getPathFromUri(this, uri);// 将uri转成路径
 
                 // TODO 打开文件
-                if (checkTemp(file)) {// 不能打开临时文件
-                    Toast.makeText(this, "can't load tempFile " + file, Toast.LENGTH_SHORT).show();
+                if (checkTemp(path)) {// 不能打开临时文件
+                    Toast.makeText(this, "can't load tempFile " + path, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                File temp = new File(file);
+                File temp = new File(path);
                 if (temp.exists()) {// 如果文件存在,才打开文件
-                    openNewFile(file);// 将该文件与临时文件绑定并打开
+                    openNewFile(path);// 将该文件与临时文件绑定并打开
                 }// TODO
             } else {// TODO
                 ;
@@ -108,13 +108,13 @@ public class MainActivity extends AppCompatActivity {
         tempSave();
     }
 
-    public boolean checkTemp(String file_name) {// 检查是否是临时文件
-        if (file_name == null) {
+    public boolean checkTemp(String path) {// 检查是否是临时文件
+        if (path == null) {
             return false;
         }
 
         // 先检查是否是app目录
-        File file = new File(file_name);
+        File file = new File(path);
         String dir_path = file.getParent();// TODO 不包含"/."
         Log.i("fuck " + dir_path, MainActivity.this.getExternalFilesDir(".").getAbsolutePath());// TODO
         Log.i(file.getName(), Pattern.matches("^temp\\d{1,2}$", file.getName()) + "");// TODO
@@ -196,14 +196,14 @@ public class MainActivity extends AppCompatActivity {
 
     protected int saveFile(String tempPath) {// 保存当前窗口文件
         // 获取临时文件名和文件名
-        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String file = preferences.getString(tempPath, null);
+        SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);
+        String path = preferencesFile.getString(tempPath, null);
 
-        if (file == null) {// 新建的临时文件
+        if (path == null) {// 新建的临时文件
             ;// TODO 调用文件管理器
         }
 
-        if (file == null) {// 调用文件管理器之后没有进行保存(取消了保存操作)
+        if (path == null) {// 调用文件管理器之后没有进行保存(取消了保存操作)
             Toast.makeText(MainActivity.this, "save canceled", Toast.LENGTH_LONG).show();// TODO
             return -1;// 取消操作
         }
@@ -211,17 +211,21 @@ public class MainActivity extends AppCompatActivity {
         // 将EditText的内容写入文件
         EditText text = findViewById(R.id.editText1);
         WriteFile tempWrite = new WriteFile();
-        int result = tempWrite.writeFile(text.getText().toString(), file);// TODO 写入文件
+        int result = tempWrite.writeFile(text.getText().toString(), path);// TODO 写入文件
         if (result == 0) {// 保存成功
-            Toast.makeText(MainActivity.this, file + " save succeed", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, path + " save succeed", Toast.LENGTH_LONG).show();
         } else {// 保存失败
-            Toast.makeText(MainActivity.this, file + " save failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, path + " save failed", Toast.LENGTH_LONG).show();
         }
         return result;// TODO 分为:保存成功,保存失败,取消保存
     }
 
-    protected void deleteFile() {
-        ;
+    protected void removeFile(String tempPath) {
+        File tempFile = new File(tempPath);
+        tempFile.delete();// TODO 如果文件不存在
+        SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencesFile.edit();
+        editor.putString(tempPath, null);// TODO 解除临时文件的链接
     }
 
     protected void closeTab() {// TODO
@@ -229,11 +233,11 @@ public class MainActivity extends AppCompatActivity {
         if (dialog.result == 0) {// `取消`
             return;
         } else {
-            SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
-            String tempPath = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+            SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+            String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
             if (dialog.result == 1) {// `保存`
                 if (saveFile(tempPath) == 0) {// TODO 保存当前窗口文件成功,删除临时文件
-
+                    removeFile(tempPath);
                 };// TODO
             }
         }
@@ -275,11 +279,11 @@ public class MainActivity extends AppCompatActivity {
 
     protected void closeCurFile() {
         // 获取文件名和临时文件名
-        SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
-        String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
-        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String file = preferences.getString(tempFile, null);
-        if (file == null || tempFile == null) {// TODO
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+        SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);
+        String path     = preferencesFile.getString(tempPath, null);
+        if (path == null || tempPath == null) {// TODO
             Log.i("fuck close", "failed");
             // return;// TODO
         }
@@ -316,18 +320,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    protected void openNewFile(String file) {// 打开非临时文件,并创建临时文件副本
+    protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
         // 将打开的文件与临时文件绑定,已经获取打开的文件的绝对路径
-        String tempFile = newTempFile();// 新建临时文件并打开,获取临时文件名
-        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(tempFile, file);// 将临时文件与打开的文件绑定
+        String tempPath = newTempFile();// 新建临时文件并打开,获取临时文件名
+        SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
+        SharedPreferences.Editor editor = preferencesFile.edit();
+        editor.putString(tempPath, path);// 将临时文件与打开的文件绑定
         editor.commit();
 
         // 将文件内容读取到输入框
         ReadFile tempRead = new ReadFile();
         EditText text = findViewById(R.id.editText1);
-        tempRead.readFile(file, text);// 如果文件不存在則会返回-1,将打开的文件的内容读入输入框
+        tempRead.readFile(path, text);// 如果文件不存在則会返回-1,将打开的文件的内容读入输入框
 
         // TODO 保存到临时文件
         tempSave();
