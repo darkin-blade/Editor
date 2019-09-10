@@ -291,10 +291,6 @@ public class MainActivity extends AppCompatActivity {
             btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
             btnNow.callOnClick();
         } else if (file_cur_num > 1) {// 当前打开不止一个文件,且是最后一个标签页
-            // 打开前一个文件,此时最后一个标签页已关闭
-            Button btnNow = findViewById(button_id + file_cur_num - 1);
-            btnNow.callOnClick();
-
             // 解除窗口和最后一个文件的链接
             SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
@@ -302,8 +298,8 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
             file_cur_num --;// TODO
 
-            // TODO 切换至临近窗口
-            btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
+            // TODO 打开前一个文件,此时最后一个标签页已被删除
+            Button btnNow = findViewById(button_id + file_cur_num);// 前一个文件的标签栏
             btnNow.callOnClick();
         } else {// TODO 打开一个文件
             file_cur_num --;
@@ -411,7 +407,6 @@ public class MainActivity extends AppCompatActivity {
         btnNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("fuck view", view.getId() - button_id + "");
                 changeTab(view.getId());// 传递被点击按钮的id
             }
         });

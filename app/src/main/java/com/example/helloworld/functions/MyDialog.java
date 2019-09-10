@@ -17,14 +17,12 @@ public class MyDialog extends Dialog {
 
     public MyDialog(Context context, int style) {
         super(context, style);
-        Log.i("fuck", "super");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.save_layout);
-        Log.i("fuck", "create");
 
         // 初始化按钮和监听
         initButton();
