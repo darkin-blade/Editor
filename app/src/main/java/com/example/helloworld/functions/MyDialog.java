@@ -26,8 +26,11 @@ public class MyDialog extends Dialog {
         setContentView(R.layout.save_layout);
         Log.i("fuck", "create");
 
-        initButton();// 初始化按钮和监听
+        // 初始化按钮和监听
+        initButton();
         result = -999;
+
+        // 初始化`保存`按钮
         yes.setOnClickListener(new View.OnClickListener() {//
             @Override
             public void onClick(View view) {
@@ -35,7 +38,24 @@ public class MyDialog extends Dialog {
                 dismiss();
             }
         });
-        // TODO
+
+        // 初始化`取消`按钮
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result = 0;
+                dismiss();
+            }
+        });
+
+        // 初始化`删除`按钮
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result = -1;
+                dismiss();
+            }
+        });
     }
 
     private void initButton() {
