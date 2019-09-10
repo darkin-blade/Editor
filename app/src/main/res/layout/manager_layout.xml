@@ -1,17 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     android:elevation="1dp">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/file_height">
+            android:layout_height="@dimen/title_height"
+            android:background="@color/grey"
+            android:text="Save as"
+            android:textSize="20dp"
+            android:gravity="center">
+        </TextView>
 
-        </Button>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/grey_dark">
+        </View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/file_outer"
+            android:background="@color/grey">
+
+            <LinearLayout
+                android:layout_width="@dimen/file_outer"
+                android:layout_height="@dimen/file_outer"
+                android:padding="10dp">
+                <Button
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/oval_blue">
+                </Button>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/file_outer"
+            android:background="@color/grey">
+
+            <LinearLayout
+                android:layout_width="@dimen/file_outer"
+                android:layout_height="@dimen/file_outer"
+                android:padding="10dp">
+                <Button
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/oval_blue">
+                </Button>
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@color/grey"
+                android:text="storage/">
+            </Button>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

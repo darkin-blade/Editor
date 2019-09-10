@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkDelete() {// 在软件运行的时候检查是否有正在写的文件被删
-        ;
     }
 
     public boolean checkTemp(String path) {// 检查是否是临时文件
