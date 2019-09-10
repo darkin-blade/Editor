@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
             if (dialog.result == 1) {// `保存`
                 if (saveFile(tempPath) == 0) {// TODO 保存当前窗口文件成功,删除临时文件
-                    removeFile(tempPath);// 删除临时文件
+                    removeFile(tempPath);// 删除临时文件, TODO
                 } else {// TODO 保存失败
                     return;
                 }
@@ -252,9 +252,18 @@ public class MainActivity extends AppCompatActivity {
                 removeFile(tempPath);
             }
         }
-//        // 删除标签栏
-//        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
-//        if (file_cur_num >= 0 && false) {// 当前是否打开了文件
+
+        // 只有在点击删除或确定保存的情况下进行此步
+        // 删除标签栏
+        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
+        if (file_cur_num + 2 <= file_total_num) {// 不是最后一个文件
+            ;
+        } else if (file_cur_num > 1) {// 当前打开不止一个文件
+            ;
+        } else {// 没有打开文件
+            ;
+        }
+//        if (file_cur_num >= 0) {// 当前是否打开了文件
 //            // 关闭当前页面
 //            Button btn = findViewById(button_id + file_cur_num);// TODO 获取当前要关闭的页面tab
 //            LinearLayout tab = findViewById(R.id.file_tab);
@@ -285,18 +294,16 @@ public class MainActivity extends AppCompatActivity {
 //        } else {
 //            Log.i("fuck cur_total", file_cur_num + "===" + file_total_num);
 //        }
-//        Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
+        Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
     }
 
     protected void closeCurFile() {
         // 获取文件名和临时文件名
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
         String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
-        SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String path     = preferencesFile.getString(tempPath, null);
-        if (path == null || tempPath == null) {// TODO
-            Log.i("fuck close", "failed");
-            // return;// TODO
+        if (tempPath == null) {// TODO 没有打开任何文件
+            Log.i("fuck total", file_total_num + "");
+            return;// TODO
         }
 
         // 显示`是否保存`提示框
