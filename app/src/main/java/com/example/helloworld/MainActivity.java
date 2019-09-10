@@ -178,7 +178,9 @@ public class MainActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveFile();
+                SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
+                String tempPath = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+                saveFile(tempPath);// TODO
             }
         });
 
@@ -192,12 +194,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void saveFile() {// 保存文件,并删除临时文件
+    protected int saveFile(String tempPath) {// 保存当前窗口文件
         // 获取临时文件名和文件名
-        SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
-        String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
         SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String file = preferences.getString(tempFile, null);
+        String file = preferences.getString(tempPath, null);
 
         if (file == null) {// 新建的临时文件
             ;// TODO 调用文件管理器
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (file == null) {// 调用文件管理器之后没有进行保存(取消了保存操作)
             Toast.makeText(MainActivity.this, "save canceled", Toast.LENGTH_LONG).show();// TODO
-            return;// 取消操作
+            return -1;// 取消操作
         }
 
         // 将EditText的内容写入文件
@@ -217,14 +217,25 @@ public class MainActivity extends AppCompatActivity {
         } else {// 保存失败
             Toast.makeText(MainActivity.this, file + " save failed", Toast.LENGTH_LONG).show();
         }
+        return result;// TODO 分为:保存成功,保存失败,取消保存
+    }
+
+    protected void deleteFile() {
+        ;
     }
 
     protected void closeTab() {// TODO
         Log.i("fuck result", dialog.result + "");
         if (dialog.result == 0) {// `取消`
             return;
-        } else if (dialog.result == 1) {// `保存`
-            ;// TODO
+        } else {
+            SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
+            String tempPath = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+            if (dialog.result == 1) {// `保存`
+                if (saveFile(tempPath) == 0) {// TODO 保存当前窗口文件成功,删除临时文件
+
+                };// TODO
+            }
         }
 //        // 删除标签栏
 //        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
