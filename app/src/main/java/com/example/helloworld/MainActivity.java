@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -421,12 +422,15 @@ public class MainActivity extends AppCompatActivity {
 
         // 显示`是否保存`提示框
         dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
+        dialog.setCanceledOnTouchOutside(false);
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
                 closeTab();
             }
         });
+
+        // TODO 将dialog设置全屏宽度
         dialog.show();// TODO 获取点击结果
     }
 
