@@ -287,21 +287,21 @@ public class MainActivity extends AppCompatActivity {
     protected void tempSave() {// 将输入框内容保存到临时文件中
         // 从当前窗口获取临时文件的路径
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
-        String tempFile = preferences.getString(file_cur_num + "", null);// 文件不存在则返回null
-        if (tempFile == null) {// TODO 没有打开文件
+        String tempPath = preferences.getString(file_cur_num + "", null);// 文件不存在则返回null
+        if (tempPath == null) {// TODO 没有打开文件
             return;
         }
-        Log.i("fuck cur", tempFile + " temp saved");// TODO
+        Log.i("fuck cur", tempPath + " temp saved");// TODO
 
         // 将EditText的内容写入临时文件
-        File file = new File(tempFile);
+        File tempFile = new File(tempPath);
         EditText text = findViewById(R.id.editText1);// 获取输入框
         WriteFile tempWrite = new WriteFile();
-        int result = tempWrite.writeFile(text.getText().toString(), tempFile);// 写入临时文件
+        int result = tempWrite.writeFile(text.getText().toString(), tempPath);// 写入临时文件
         if (result == 0) {// TODO 保存成功
-            Toast.makeText(MainActivity.this, file.getName() + " temp save", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, tempFile.getName() + " temp save", Toast.LENGTH_LONG).show();
         } else {// 保存失败
-            Toast.makeText(MainActivity.this, file.getName() + " temp save error", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, tempFile.getName() + " temp save error", Toast.LENGTH_LONG).show();
         }
     }
 
