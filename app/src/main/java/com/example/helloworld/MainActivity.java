@@ -27,6 +27,7 @@ import com.example.helloworld.functions.ReadFile;
 import com.example.helloworld.functions.WriteFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // TODO 恢复窗口
+        reOpen();
 
         Intent intent = getIntent();
         String action = intent.getAction();// 判断本软件启动的方式
@@ -110,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = curNum.edit();
         editor.putInt("file_cur_num", file_cur_num);// TODO 保存窗口号
         editor.putInt("file_total_num", file_total_num);// TODO 保存总窗口号
+        editor.commit();
     }
 
     protected void reOpen() {// 恢复未关闭的页面
@@ -117,15 +122,64 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences curNum = getSharedPreferences("temp_num", MODE_PRIVATE);
         file_cur_num = curNum.getInt("file_cur_num", -1);// 获取当前窗口号
         file_total_num = curNum.getInt("file_total_num", 0);// 获取总窗口号
+        int[] non_array = new int[file_total_num];// 记录文件被毁的编号(含button_id)
+        int non_num = 0;// 初始默认没有文件被毁
+
+        // TODO 之前没有进行页面保存
+        if (file_cur_num == -1) {
+            return;
+        }
 
         // 将所有页面恢复
         String tempPath = null;
+        File tempFile = null;
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
         for (int i = 0; i < file_total_num ; i ++) {// TODO
+            // 获取临时文件路径
             tempPath = preferences.getString(i + "", null);
-            if (tempPath == null) {// 文件不存在了
-                ;
+            if (tempPath == null) {// TODO
+                new AssertionError("reopen error");
             }
+
+            // TODO 恢复文件
+            tempFile = new File(tempPath);
+            if (!tempFile.exists()) {// TODO 临时文件被修改了
+                try {
+                    non_array[non_num] = button_id + i;// 记录被毁文件窗口编号
+                    tempFile.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            // 在顶部栏创建tab
+            LinearLayout tab = findViewById(R.id.file_tab);
+            Button btnNow = new Button(MainActivity.this);
+            btnNow.setBackgroundResource(R.drawable.tab_active);
+            btnNow.setLayoutParams(new LinearLayout.LayoutParams(220, LinearLayout.LayoutParams.MATCH_PARENT));// 设定大小
+            btnNow.setText(tempFile.getName());// TODO 为tab设定文件名
+            btnNow.setPadding(0, 0, 0, 0);
+
+            // TODO 为button标号
+            btnNow.setId(button_id + i);// TODO
+
+            // TODO 为button添加切换监听
+            btnNow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    changeTab(view.getId());// 传递被点击按钮的id
+                }
+            });
+            tab.addView(btnNow);// 添加按钮
+        }
+
+        // 再次删除所有被毁文件
+        changeTab(button_id + file_cur_num);// TODO
+        dialog = new MyDialog(this, R.style.save_style);// TODO 临时用
+        dialog.result = -1;// TODO 默认删除所有文件
+        for (int i = 0; i < non_num ; i ++) {
+            changeTab(non_array[i]);
+            closeTab();// TODO
         }
     }
 
@@ -444,7 +498,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void changeTab(int tabNew) {// TODO 切换窗口
+    public void changeTab(int tabNew) {// TODO 切换窗口(加上button_id)
 
         // TODO 将旧的窗口置为不活跃,如果不需要此步,将file_cur_num置为负数
         Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
