@@ -301,14 +301,18 @@ public class MainActivity extends AppCompatActivity {
             editor.putString(file_cur_num + "", null);// 最后一个窗口不再绑定临时文件
             editor.commit();
             file_cur_num --;// TODO
+
+            // TODO 切换至临近窗口
+            btnNow = findViewById(button_id + file_cur_num);// 切换当前文件
+            btnNow.callOnClick();
         } else {// TODO 打开一个文件
             file_cur_num --;
             if (file_cur_num != -1) {
                 new AssertionError("no file????");
             }
         }
-        file_total_num --;// 总文件数减少
 
+        file_total_num --;// 总文件数减少
         Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
     }
 
@@ -418,13 +422,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeTab(int click_id) {// TODO 切换窗口
+        // 将旧的窗口置为不活跃
         Button btnLast = findViewById(button_id + file_cur_num);// 找出当前文件对应tab
-        if (btnLast != null) {// TODO 关闭事件等
+        if (btnLast != null) {// TODO 由关闭事件调用的此函数,至少还留有一个打开的文件窗口
             btnLast.setBackgroundResource(R.drawable.tab_notactive);// 置为不活跃
         }
 
+        // 将新的窗口置为活跃
         Button btnNow = findViewById(click_id);// 找出被点击的tab
         btnNow.setBackgroundResource(R.drawable.tab_active);// 置为活跃
         file_cur_num = click_id - button_id;// TODO 切换当前文件
+
+        // 读取新窗口对应文件的数据
+        EditText text = findViewById(R.id.editText1);
+        ReadFile tempRead = new ReadFile();
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 获取窗口对应临时文件的路径
+        String tempPath = preferences.getString(file_cur_num + "", null);
+        tempRead.readFile(tempPath, text);
     }
 }
