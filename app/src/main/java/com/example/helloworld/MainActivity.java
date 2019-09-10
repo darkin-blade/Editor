@@ -186,8 +186,8 @@ public class MainActivity extends AppCompatActivity {
         ReadFile tempRead = new ReadFile();
         tempRead.readFile(preferences.getString(file_cur_num + "", null), text);// TODO 文件不存在
         changeTab(button_id + file_cur_num);// TODO
-        dialog = new MyDialog(this, R.style.save_style);// TODO 临时用
-        dialog.result = -1;// TODO 默认删除所有文件
+//        dialog = new MyDialog(this, R.style.save_style);// TODO 临时用 TODO
+//        dialog.result = -1;// TODO 默认删除所有文件
         for (int i = 0; i < non_num ; i ++) {
             file_cur_num = non_array[i] - button_id;// TODO 临时修改当前窗口
             changeTab(non_array[i]);
@@ -283,13 +283,7 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                PopupWindow popupWindow = new PopupWindow(MainActivity.this);
-                popupWindow.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-                popupWindow.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
-                popupWindow.setContentView(LayoutInflater.from(MainActivity.this).inflate(R.layout.save_layout, null));
-                popupWindow.setOutsideTouchable(false);
-                popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
-                popupWindow.showAsDropDown(view);
+                MyDialog popupWindow = new MyDialog(MainActivity.this, view);
                 // closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
@@ -431,18 +425,16 @@ public class MainActivity extends AppCompatActivity {
             return;// TODO
         }
 
-        // 显示`是否保存`提示框
-        dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialogInterface) {
-                closeTab();
-            }
-        });
-
-        // TODO 将dialog设置全屏宽度
-        dialog.show();// TODO 获取点击结果
+        // 显示`是否保存`提示框 TODO
+//        dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
+//        dialog.setCanceledOnTouchOutside(false);
+//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialogInterface) {
+//                closeTab();
+//            }
+//        });
+//        dialog.show();// TODO 获取点击结果
     }
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
