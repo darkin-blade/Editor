@@ -16,8 +16,12 @@ import java.nio.charset.Charset;
  */
 
 public class ReadFile extends FileManager {
-    public int readFile(String file_path, EditText text) {
-        File file = new File(file_path);
+    public int readFile(String path, EditText text) {
+        if (path == null) {// TODO
+            return -1;
+        }
+
+        File file = new File(path);
         if (!file.exists()) {// TODO 文件不存在
             return -1;
         }
@@ -30,7 +34,7 @@ public class ReadFile extends FileManager {
             byte[] file_content = new byte[file_length];// TODO 大小不够
 
             // 读取文件内容
-            Log.i("read file", file_path);
+            Log.i("read file", path);
             RandomAccessFile raFile = new RandomAccessFile(file, "r");
             raFile.read(file_content);
 

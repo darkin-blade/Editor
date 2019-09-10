@@ -177,6 +177,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 再次删除所有被毁文件
+        EditText text = findViewById(R.id.editText1);// 先要加载文件到输入框
+        ReadFile tempRead = new ReadFile();
+        tempRead.readFile(preferences.getString(file_cur_num + "", null), text);// TODO 文件不存在
         changeTab(button_id + file_cur_num);// TODO
         dialog = new MyDialog(this, R.style.save_style);// TODO 临时用
         dialog.result = -1;// TODO 默认删除所有文件
