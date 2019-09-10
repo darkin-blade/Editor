@@ -2,7 +2,6 @@ package com.example.helloworld;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.arch.core.util.Function;
 import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
@@ -105,6 +104,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {// TODO 用于临时保存数据
         super.onPause();
         tempSave();
+    }
+
+    protected void reOpen() {// 恢复未关闭的页面
+        // 获取总窗口号和当前窗口号
+        SharedPreferences curNum = getSharedPreferences("temp_num", MODE_PRIVATE);
+        file_cur_num = curNum.getInt("file_cur_num", -1);// 获取当前窗口号
+        file_total_num = curNum.getInt("file_total_num", 0);// 获取总窗口号
+
+        // 将所有页面恢复
+        String tempPath = null;
+        SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        for (int i = 0; i < file_total_num ; i ++) {// TODO
+            tempPath = preferences.getString(i + "", null);
+            if (tempPath == null) {// 文件不存在了
+                ;
+            }
+        }
     }
 
     public boolean checkTemp(String path) {// 检查是否是临时文件
@@ -421,6 +437,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, tempFile.getName() + " temp save error", Toast.LENGTH_SHORT).show();
         }
 
+        // 保存当前的窗口号
+        SharedPreferences curNum = getSharedPreferences("temp_num", MODE_PRIVATE);
+        SharedPreferences.Editor editor = curNum.edit();
+        editor.putInt("file_cur_num", file_cur_num);// TODO 保存窗口号
+        editor.putInt("file_total_num", file_total_num);// TODO 保存总窗口号
         Log.i("fuck temp save", text.getText().toString() + " " + tempPath);// TODO
     }
 
