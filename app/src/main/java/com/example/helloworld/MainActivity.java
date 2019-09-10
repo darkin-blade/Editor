@@ -129,7 +129,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createBtn() {// 为所有按钮绑定点击事件
-        Button openBtn = findViewById(R.id.openButton);// `打开`按钮
+        // `打开`按钮
+        Button openBtn = findViewById(R.id.openButton);
         openBtn.setOnClickListener(new View.OnClickListener() {// 点击`打开`按钮
             @Override
             public void onClick(View view) {
@@ -141,7 +142,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnCtrl = findViewById(R.id.ctrlButton);// TODO 控制`隐藏/显示`按钮
+        // TODO 控制`隐藏/显示`按钮
+        Button btnCtrl = findViewById(R.id.ctrlButton);
         btnCtrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -160,7 +162,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final Button btnNew = findViewById(R.id.newButton);// `新建`按钮
+        // `新建`按钮
+        final Button btnNew = findViewById(R.id.newButton);
         btnNew.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
@@ -169,7 +172,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button btnSave = findViewById(R.id.saveButton);// `保存`按钮
+        // `保存`按钮
+        Button btnSave = findViewById(R.id.saveButton);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button closeBtn = findViewById(R.id.closeButton);// `关闭`按钮
+        // `关闭`按钮
+        Button closeBtn = findViewById(R.id.closeButton);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
@@ -199,26 +204,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void closeCurFile() {
-        // 获取文件名和临时文件名
-        SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
-        String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
-        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
-        String file = preferencesFile.getString(tempFile, null);
-        if (file == null || tempFile == null) {// TODO
-            Log.i("fuck close", "failed");
-            // return;// TODO
-        }
-
-        // 显示`是否保存`提示框
-        dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
-
-        dialog.show();// TODO 获取点击结果
-
-        while (dialog.result == -999) {
-            Log.i("fuck", "return " + dialog.result);
-        }
-//
+    protected void closeTab() {
+        Log.i("fuck result", dialog.result + "");
 //        // 删除标签栏
 //        Log.i("fuck before", file_cur_num + ", total: " + file_total_num);
 //        if (file_cur_num >= 0 && false) {// 当前是否打开了文件
@@ -253,6 +240,22 @@ public class MainActivity extends AppCompatActivity {
 //            Log.i("fuck cur_total", file_cur_num + "===" + file_total_num);
 //        }
 //        Log.i("fuck after", file_cur_num + ", total: " + file_total_num);
+    }
+
+    protected void closeCurFile() {
+        // 获取文件名和临时文件名
+        SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
+        String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
+        SharedPreferences preferences = getSharedPreferences("temp_file", MODE_PRIVATE);
+        String file = preferencesFile.getString(tempFile, null);
+        if (file == null || tempFile == null) {// TODO
+            Log.i("fuck close", "failed");
+            // return;// TODO
+        }
+
+        // 显示`是否保存`提示框
+        dialog = new MyDialog(MainActivity.this, R.style.save_style);// 新建dialog
+        dialog.show();// TODO 获取点击结果
     }
 
     protected void tempSave() {// 将输入框内容保存到临时文件中

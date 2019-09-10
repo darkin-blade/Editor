@@ -121,7 +121,6 @@
             android:id="@+id/openButton"
             android:text="open"
             style="@style/blue"/>
-
     </LinearLayout>
 
 

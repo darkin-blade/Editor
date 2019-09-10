@@ -32,7 +32,6 @@ public class MyDialog extends Dialog {
             public void onClick(View view) {
                 result = 1;
                 dismiss();
-                Log.i("fuck result", result + "");
             }
         });
         // TODO
