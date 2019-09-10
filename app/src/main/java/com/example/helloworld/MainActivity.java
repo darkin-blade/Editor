@@ -304,8 +304,7 @@ public class MainActivity extends AppCompatActivity {
 
             // TODO 打开前一个文件,此时最后一个标签页已被删除
             Button btnNow = findViewById(button_id + file_cur_num - 1);// 前一个文件的标签栏
-            btnNow.callOnClick();
-            file_cur_num --;// TODO
+            btnNow.callOnClick();// 已经修改file_cur_num,无需再修改
             Log.i("fuck closefile", file_cur_num + "");
         } else {// TODO 只打开了一个文件
             // 关闭所有文件
@@ -438,6 +437,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnNow = findViewById(tabNew);// 找出被点击的tab
         btnNow.setBackgroundResource(R.drawable.tab_active);// 置为活跃
         file_cur_num = tabNew - button_id;// TODO 切换当前文件
+        Log.i("fuck change tab", file_cur_num + "");
 
         // 获取新窗口文件路径
         SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);// 获取窗口对应临时文件的路径
