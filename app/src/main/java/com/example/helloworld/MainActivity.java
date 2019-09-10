@@ -10,12 +10,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -169,7 +167,9 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View view) {
-                newTempFile();
+                createFile();
+                Button tempBtn = findViewById(button_id + file_cur_num);// TODO
+                tempBtn.callOnClick();
             }
         });
 
@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity {
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
         // 将打开的文件与临时文件绑定,已经获取打开的文件的绝对路径
-        String tempPath = newTempFile();// 新建临时文件并打开,获取临时文件名
+        String tempPath = createFile();// 新建临时文件并打开,获取临时文件名
         SharedPreferences preferencesFile = getSharedPreferences("temp_file", MODE_PRIVATE);// 只能被自己的应用程序访问,打开临时文件映射
         SharedPreferences.Editor editor = preferencesFile.edit();
         editor.putString(tempPath, path);// 将临时文件与打开的文件绑定
@@ -374,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
         tempSave();
     }
 
-    protected String newTempFile() {// 新建临时文件并显示到最后一个窗口, TODO TODO 文件名的显示
+    protected String createFile() {// 新建临时文件并显示到最后一个窗口, TODO TODO 文件名的显示
         // 新建临时文件
         NewFile tempNew = new NewFile();
         int temp_num = tempNew.newFile("", MainActivity.this);// TODO 获取临时文件编号
