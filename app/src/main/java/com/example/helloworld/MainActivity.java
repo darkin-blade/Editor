@@ -306,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
             Button btnNow = findViewById(button_id + file_cur_num - 1);// 前一个文件的标签栏
             btnNow.callOnClick();
             file_cur_num --;// TODO
+            Log.i("fuck closefile", file_cur_num + "");
         } else {// TODO 只打开了一个文件
             // 关闭所有文件
             file_cur_num --;
