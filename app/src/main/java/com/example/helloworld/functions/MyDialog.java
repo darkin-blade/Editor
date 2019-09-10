@@ -22,38 +22,38 @@ public class MyDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.manager_layout);
+        setContentView(R.layout.save_layout);
 
         // 初始化按钮和监听
         initButton();
         result = -999;
 
         // 初始化`保存`按钮
-//        yes.setOnClickListener(new View.OnClickListener() {//
-//            @Override
-//            public void onClick(View view) {
-//                result = 1;
-//                dismiss();
-//            }
-//        });
-//
-//        // 初始化`取消`按钮
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                result = 0;
-//                dismiss();
-//            }
-//        });
-//
-//        // 初始化`删除`按钮
-//        no.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                result = -1;
-//                dismiss();
-//            }
-//        });
+        yes.setOnClickListener(new View.OnClickListener() {//
+            @Override
+            public void onClick(View view) {
+                result = 1;
+                dismiss();
+            }
+        });
+
+        // 初始化`取消`按钮
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result = 0;
+                dismiss();
+            }
+        });
+
+        // 初始化`删除`按钮
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                result = -1;
+                dismiss();
+            }
+        });
     }
 
     private void initButton() {
