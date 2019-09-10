@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveNewFile();
+                saveFile();
             }
         });
 
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    protected void saveNewFile() {// 保存文件,并删除临时文件
+    protected void saveFile() {// 保存文件,并删除临时文件
         // 获取临时文件名和文件名
         SharedPreferences preferencesFile = getSharedPreferences("temp_tab", MODE_PRIVATE);
         String tempFile = preferencesFile.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
