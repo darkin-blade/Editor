@@ -14,4 +14,10 @@
         <!-- 阴影颜色 -->
         <item name="android:shadowColor">@color/grey_dark</item>
     </style>
+
+    <style name="file_manager">
+        <item name="android:background">@color/grey_dark</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
 </resources>

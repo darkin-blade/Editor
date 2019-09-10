@@ -61,5 +61,6 @@
     <dimen name="tab_height">35dp</dimen>
     <dimen name="tab_width">110dp</dimen>
     <dimen name="file_outer">65dp</dimen>
+    <dimen name="save_height">110dp</dimen>
 
 </resources>
