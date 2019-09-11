@@ -32,8 +32,9 @@ public class MyWindow extends PopupWindow {
         this.setBackgroundDrawable(null);
         this.setFocusable(true);// 否则无法进行edittext输入
 
-        this.showAsDropDown(view);
-        this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         this.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+
+        this.showAsDropDown(view);
     }
 }
