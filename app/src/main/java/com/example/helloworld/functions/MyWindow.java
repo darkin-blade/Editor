@@ -22,26 +22,20 @@ public class MyWindow extends DialogFragment {
     public Button no;
     public int result;
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.save_layout, container);
-//        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));// 背景透明
-//
-//        // 绑定按钮事件
-//        initButton(view);
-//        return view;
-//    }
-//
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.save_layout, container);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));// 背景透明
+
+        // 绑定按钮事件
+        initButton(view);
+        return view;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_FRAME, android.R.style.Theme);
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        return builder.create();
     }
 
     private void initButton(View view) {
