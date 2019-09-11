@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     int buttonMove = 280;// 所有button一起移动的水平参数
     int button_id = 1234321;// button的起始id
 
-    public MyWindow dialog;
+    public MyWindow myWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +180,8 @@ public class MainActivity extends AppCompatActivity {
         ReadFile tempRead = new ReadFile();
         tempRead.readFile(preferences.getString(file_cur_num + "", null), text);// TODO 文件不存在
         changeTab(button_id + file_cur_num);// TODO
-//        dialog = new MyWindow(this, R.style.save_style);// TODO 临时用 TODO
-//        dialog.result = -1;// TODO 默认删除所有文件
+//        myWindow = new MyWindow(this, R.style.save_style);// TODO 临时用 TODO
+//        myWindow.result = -1;// TODO 默认删除所有文件
         for (int i = 0; i < non_num ; i ++) {
             file_cur_num = non_array[i] - button_id;// TODO 临时修改当前窗口
             changeTab(non_array[i]);
@@ -277,7 +277,8 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                MyWindow popupWindow = new MyWindow(MainActivity.this, view);
+                myWindow = new MyWindow();
+                myWindow.show(getSupportFragmentManager(), "edit");
                 // closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
@@ -325,19 +326,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void closeTab() {// TODO 必须打开至少一个文件,会修改总文件数
-        Log.i("fuck dialog result", dialog.result + "");
-        if (dialog.result == 0) {// `取消`
+        Log.i("fuck myWindow result", myWindow.result + "");
+        if (myWindow.result == 0) {// `取消`
             return;
         } else {
             SharedPreferences preferences = getSharedPreferences("temp_tab", MODE_PRIVATE);
             String tempPath = preferences.getString(file_cur_num + "", null);// 获取当前窗口的临时文件位置
-            if (dialog.result == 1) {// `保存`
+            if (myWindow.result == 1) {// `保存`
                 if (saveFile(tempPath) == 0) {// TODO 保存当前窗口文件成功,删除临时文件
                     removeFile(tempPath);// 删除临时文件
                 } else {// TODO 保存失败
                     return;
                 }
-            } else if (dialog.result == -1) {// 不保存文件
+            } else if (myWindow.result == -1) {// 不保存文件
                 removeFile(tempPath);
             }
         }
@@ -420,15 +421,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 显示`是否保存`提示框 TODO
-//        dialog = new MyWindow(MainActivity.this, R.style.save_style);// 新建dialog
-//        dialog.setCanceledOnTouchOutside(false);
-//        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//        myWindow = new MyWindow(MainActivity.this, R.style.save_style);// 新建dialog
+//        myWindow.setCanceledOnTouchOutside(false);
+//        myWindow.setOnDismissListener(new DialogInterface.OnDismissListener() {
 //            @Override
 //            public void onDismiss(DialogInterface dialogInterface) {
 //                closeTab();
 //            }
 //        });
-//        dialog.show();// TODO 获取点击结果
+//        myWindow.show();// TODO 获取点击结果
     }
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
