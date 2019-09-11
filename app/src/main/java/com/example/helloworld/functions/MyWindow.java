@@ -71,11 +71,11 @@ public class MyWindow extends DialogFragment {
         });
     }
 
-//    @Override
-//    public void onDismiss(final DialogInterface dialog) {
-//        super.onDismiss(dialog);
-//
-//        Activity activity = getActivity();
-//        Log.i("fuck instance", activity + "");
-//    }
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Activity activity = getActivity();
+        Log.i("fuck instance", activity + "");
+    }
 }
