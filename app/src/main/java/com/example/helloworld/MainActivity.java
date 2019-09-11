@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -180,8 +181,8 @@ public class MainActivity extends AppCompatActivity {
         ReadFile tempRead = new ReadFile();
         tempRead.readFile(preferences.getString(file_cur_num + "", null), text);// TODO 文件不存在
         changeTab(button_id + file_cur_num);// TODO
-//        myWindow = new MyWindow(this, R.style.save_style);// TODO 临时用 TODO
-//        myWindow.result = -1;// TODO 默认删除所有文件
+        myWindow = new MyWindow();// TODO 临时用 TODO
+        myWindow.result = -1;// TODO 默认删除所有文件
         for (int i = 0; i < non_num ; i ++) {
             file_cur_num = non_array[i] - button_id;// TODO 临时修改当前窗口
             changeTab(non_array[i]);
@@ -277,10 +278,7 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                myWindow = new MyWindow();
-                myWindow.show(getSupportFragmentManager(), "edit");
-                Log.i("find fuck", (findViewById(R.id.yes_button) == null) + "");
-                // closeCurFile();// TODO 关闭当前窗口的文件
+                 closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
     }
@@ -422,15 +420,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 显示`是否保存`提示框 TODO
-//        myWindow = new MyWindow(MainActivity.this, R.style.save_style);// 新建dialog
-//        myWindow.setCanceledOnTouchOutside(false);
-//        myWindow.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//            @Override
-//            public void onDismiss(DialogInterface dialogInterface) {
-//                closeTab();
-//            }
-//        });
-//        myWindow.show();// TODO 获取点击结果
+        myWindow = new MyWindow() {// 新建dialog
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                closeTab();
+            }
+        };
+        myWindow.show(getSupportFragmentManager(), "confirm_dialog");
     }
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
