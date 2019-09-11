@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,7 +34,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogInterface.OnDismissListener {
 
     String[] current_temp = new String[5];// 所有打开文件对应的临时文件
     int file_total_num = 0;// TODO 当前打开的文件总数
@@ -424,11 +425,7 @@ public class MainActivity extends AppCompatActivity {
         // 显示`是否保存`提示框 TODO
         myWindow = new MyWindow();// 新建dialog
         myWindow.show(getSupportFragmentManager(), "confirm_dialog");
-//            @Override
-//            public void onDismiss(DialogInterface dialog) {
-//                super.onDismiss(dialog);
-//                closeTab();
-//            }
+        Log.i("fuck", "main");
     }
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
@@ -531,5 +528,13 @@ public class MainActivity extends AppCompatActivity {
         EditText text = findViewById(R.id.editText1);
         ReadFile tempRead = new ReadFile();
         tempRead.readFile(tempPath, text);
+
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {// 重写提示框
+        Log.i("fuck", "dismiss");
+        closeTab();
+        EditText text = new EditText(this);
     }
 }

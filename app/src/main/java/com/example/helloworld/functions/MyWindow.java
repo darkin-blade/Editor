@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.helloworld.R;
 
@@ -23,7 +24,14 @@ public class MyWindow extends DialogFragment {
     public int result;
 
     @Override
+    public void show(FragmentManager fragmentManager, String tag) {
+        super.show(fragmentManager, tag);
+        Log.i("fuck", "show");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i("fuck", "on create view");
         View view = inflater.inflate(R.layout.save_layout, container);
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));// 背景透明
 
@@ -35,7 +43,8 @@ public class MyWindow extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_FRAME, android.R.style.Theme);
+        setStyle(STYLE_NO_FRAME, android.R.style.Theme);// 关闭背景(点击外部不能取消)
+        Log.i("fuck", "on create");
     }
 
     private void initButton(View view) {
@@ -43,7 +52,6 @@ public class MyWindow extends DialogFragment {
         cancel = view.findViewById(R.id.cancel_button);
         no = view.findViewById(R.id.no_button);
 
-        // 初始化`保存`按钮
         yes.setOnClickListener(new View.OnClickListener() {//
             @Override
             public void onClick(View view) {
@@ -52,7 +60,6 @@ public class MyWindow extends DialogFragment {
             }
         });
 
-        // 初始化`取消`按钮
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +68,6 @@ public class MyWindow extends DialogFragment {
             }
         });
 
-        // 初始化`删除`按钮
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,8 +80,10 @@ public class MyWindow extends DialogFragment {
     @Override
     public void onDismiss(final DialogInterface dialog) {
         super.onDismiss(dialog);
-
         Activity activity = getActivity();
-        Log.i("fuck instance", activity + " " + dialog);
+        Log.i("fuck", "child");
+        if (activity instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) activity).onDismiss(dialog);
+        }
     }
 }
