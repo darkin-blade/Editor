@@ -277,7 +277,8 @@ public class MainActivity extends AppCompatActivity {
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {// TODO
-                myWindow = new MyWindow(MainActivity.this, view);
+                myWindow = new MyWindow();
+                myWindow.show(getSupportFragmentManager(), "edit");
                 // closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
