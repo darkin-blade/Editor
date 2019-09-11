@@ -49,6 +49,13 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 首次检察权限
+        String permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+        int check_result = ActivityCompat.checkSelfPermission(this, permission);// `允许`返回0,`拒绝`返回-1
+        if (check_result != PackageManager.PERMISSION_GRANTED) {// 没有`写`权限
+            ActivityCompat.requestPermissions(this, new String[]{permission}, 1);// 获取`写`权限
+        }
+
         // TODO 恢复窗口
         reOpen();
 
@@ -72,12 +79,6 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             }// TODO
         }
 
-        // 首次检察权限
-        String permission = "android.permission.WRITE_EXTERNAL_STORAGE";
-        int check_result = ActivityCompat.checkSelfPermission(this, permission);// `允许`返回0,`拒绝`返回-1
-        if (check_result != PackageManager.PERMISSION_GRANTED) {// 没有`写`权限
-            ActivityCompat.requestPermissions(this, new String[]{permission}, 1);// 获取`写`权限
-        }
 
         // 为所有按钮绑定点击事件
         createBtn();
@@ -252,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         });
 
         // `新建`按钮
-        final Button btnNew = findViewById(R.id.newButton);
+        Button btnNew = findViewById(R.id.newButton);
         btnNew.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override

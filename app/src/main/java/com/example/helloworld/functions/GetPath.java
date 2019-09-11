@@ -19,7 +19,7 @@ import java.io.File;
 
 public class GetPath extends FileManager {
     // TODO
-    public static String getPathFromUri(Context context, Uri uri) {
+    public String getPathFromUri(Context context, Uri uri) {
         Log.i("uri", uri.toString());
         Log.i("uri path", uri.getPath());
         Log.i("uri scheme", uri.getScheme());
