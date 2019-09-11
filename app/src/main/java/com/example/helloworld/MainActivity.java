@@ -279,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {// TODO
                 myWindow = new MyWindow();
                 myWindow.show(getSupportFragmentManager(), "edit");
+                Log.i("find fuck", (findViewById(R.id.yes_button) == null) + "");
                 // closeCurFile();// TODO 关闭当前窗口的文件
             }
         });
