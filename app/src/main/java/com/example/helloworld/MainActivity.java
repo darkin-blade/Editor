@@ -3,6 +3,7 @@ package com.example.helloworld;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -422,12 +423,12 @@ public class MainActivity extends AppCompatActivity {
 
         // 显示`是否保存`提示框 TODO
         myWindow = new MyWindow();// 新建dialog
+        myWindow.show(getSupportFragmentManager(), "confirm_dialog");
 //            @Override
 //            public void onDismiss(DialogInterface dialog) {
 //                super.onDismiss(dialog);
 //                closeTab();
 //            }
-        myWindow.show(getSupportFragmentManager(), "confirm_dialog");
     }
 
     protected void openNewFile(String path) {// 打开非临时文件,并创建临时文件副本
