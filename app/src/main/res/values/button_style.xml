@@ -57,10 +57,17 @@
         <item name="android:textColor">@color/grey_dark</item>
     </style>
 
+    <!-- 软件标题栏高度 -->
     <dimen name="title_height">55dp</dimen>
+
+    <!-- 窗口tab高度/宽度 -->
     <dimen name="tab_height">35dp</dimen>
     <dimen name="tab_width">110dp</dimen>
+
+    <!-- file_manager中每一项的高度 -->
     <dimen name="file_outer">65dp</dimen>
-    <dimen name="save_height">110dp</dimen>
+
+    <!-- file_manager底部提示框高度 -->
+    <dimen name="save_height">210dp</dimen>
 
 </resources>

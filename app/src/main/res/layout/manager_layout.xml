@@ -24,10 +24,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/save_height"
             app:layout_constraintTop_toTopOf="parent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -80,7 +80,227 @@
                         android:text="storage/"
                         android:padding="20dp">
                     </TextView>
+                </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
                 </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>                <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/file_outer"
+                android:background="@color/grey"
+                android:paddingLeft="20dp">
+                <LinearLayout
+                    android:layout_width="@dimen/file_outer"
+                    android:layout_height="@dimen/file_outer"
+                    android:padding="10dp">
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/file_item">
+                    </View>
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey"
+                    android:text="storage/"
+                    android:padding="20dp">
+                </TextView>
+            </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
@@ -88,7 +308,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/save_height"
             android:background="@color/grey"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent">
