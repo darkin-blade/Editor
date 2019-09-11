@@ -6,6 +6,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -420,12 +421,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // 显示`是否保存`提示框 TODO
-        myWindow = new MyWindow() {// 新建dialog
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                closeTab();
-            }
-        };
+        myWindow = new MyWindow();// 新建dialog
+//            @Override
+//            public void onDismiss(DialogInterface dialog) {
+//                super.onDismiss(dialog);
+//                closeTab();
+//            }
         myWindow.show(getSupportFragmentManager(), "confirm_dialog");
     }
 
