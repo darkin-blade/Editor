@@ -17,22 +17,23 @@ import androidx.fragment.app.DialogFragment;
 import com.example.helloworld.MainActivity;
 import com.example.helloworld.R;
 
-public class MyWindow extends DialogFragment {
+public class MyWindow extends PopupWindow {
     public Button yes;
     public Button cancel;
     public Button no;
     public int result;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.manager_layout, container);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
-        return view;
-    }
+    public MyWindow(Context context, View view) {
+        super(context);
+        this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
+        this.setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
+        this.setContentView(LayoutInflater.from(context).inflate(R.layout.manager_layout, null));
+        // this.setOutsideTouchable(false);
+        this.setBackgroundDrawable(null);
+        this.setFocusable(true);// 否则无法进行edittext输入
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_FRAME, android.R.style.Theme);
+        this.showAsDropDown(view);
+        this.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        this.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
     }
 }
