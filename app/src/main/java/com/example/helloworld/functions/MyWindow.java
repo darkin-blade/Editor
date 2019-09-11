@@ -76,6 +76,6 @@ public class MyWindow extends DialogFragment {
         super.onDismiss(dialog);
 
         Activity activity = getActivity();
-        Log.i("fuck instance", activity + "");
+        Log.i("fuck instance", activity + " " + dialog);
     }
 }
